@@ -5,8 +5,8 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import net.shadowmaster435.parsinator.util.ParsinatorParserOutput
 
 class RepeatParsinatorParser(
-    val canBeEmpty: Boolean,
-    val chain: ChainParsinatorParser,
+    @JvmField val canBeEmpty: Boolean,
+    @JvmField val chain: ChainParsinatorParser,
     optional: Boolean
 ) : AbstractParsinatorParser(optional) {
 

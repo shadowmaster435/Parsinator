@@ -4,18 +4,16 @@ import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 
 internal class WrapperParsinatorParser(
-    val parser: AbstractParsinatorParser,
+    @JvmField val parser: AbstractParsinatorParser,
     @JvmSynthetic internal val isTrailing: Boolean = false,
 ): AbstractParsinatorParser(parser.optional) {
     override fun shouldParse(parsinator: Parsinator) = parser.shouldParse(parsinator)
-    val isWhitespace = parser is WhitespaceParsinatorParser
+    @JvmField val isWhitespace = parser is WhitespaceParsinatorParser
 
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
-        val start = parsinator.index
         val parsed = parser.parse(parsinator)
         if (!optional && parsed != null) return parsed
-
         return null
     }
 }

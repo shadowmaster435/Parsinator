@@ -3,7 +3,7 @@ package net.shadowmaster435.parsinator.parser
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 
-class NameParsinatorParser(val allowedChars: Regex, val cannotStartWith: Regex? = null, optional: Boolean) : AbstractParsinatorParser(optional) {
+class NameParsinatorParser(@JvmField val allowedChars: Regex, @JvmField val cannotStartWith: Regex? = null, optional: Boolean) : AbstractParsinatorParser(optional) {
     override fun shouldParse(parsinator: Parsinator) = parsinator.inbounds(0) && allowedChars.matches(parsinator.char.toString())
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {

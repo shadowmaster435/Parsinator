@@ -5,9 +5,9 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import net.shadowmaster435.parsinator.util.Stack
 
 open class RecursiveParsinatorParser(
-    val shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
-    val shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
-    val subParser: AbstractParsinatorParser,
+    @JvmField val shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
+    @JvmField val shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
+    @JvmField val subParser: AbstractParsinatorParser,
     optional: Boolean,
 ) : AbstractParsinatorParser(optional) {
 

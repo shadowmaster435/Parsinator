@@ -5,7 +5,7 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 
 class BranchParsinatorParser(
     optional: Boolean,
-    vararg val branches: AbstractParsinatorParser,
+    @JvmField vararg val branches: AbstractParsinatorParser,
 ) : AbstractParsinatorParser(optional) {
     init {
         if (branches.size < 2) throw IllegalArgumentException("A branch must contain at least two values.")

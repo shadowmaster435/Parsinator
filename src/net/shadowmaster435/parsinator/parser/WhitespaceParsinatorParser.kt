@@ -16,7 +16,7 @@ class WhitespaceParsinatorParser : AbstractParsinatorParser(false) {
         }
     }
     companion object {
-        val WHITESPACE = Regex("\\s")
+        @JvmField val WHITESPACE = Regex("\\s")
     }
 
 }

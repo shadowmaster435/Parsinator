@@ -92,7 +92,7 @@ abstract class RangeMap<K: Comparable<K>, V>: MutableMap<K, V> {
     private val internalEntries = mutableListOf<MutableMap.MutableEntry<K, V>>()
     private var minIndex: K? = null
     private var maxIndex: K? = null
-    var snapType: SnapType = SnapType.ROUND_DOWN
+    @JvmField var snapType: SnapType = SnapType.ROUND_DOWN
 
     override val size
         get() = internalEntries.size

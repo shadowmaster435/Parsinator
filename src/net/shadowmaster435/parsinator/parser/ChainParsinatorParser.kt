@@ -6,7 +6,7 @@ import net.shadowmaster435.parsinator.util.ParsinatorParserOutput
 
 class ChainParsinatorParser(
     optional: Boolean,
-    vararg val chain: AbstractParsinatorParser,
+    @JvmField vararg val chain: AbstractParsinatorParser,
 ) : AbstractParsinatorParser(optional) {
     init {
         if (chain.isEmpty()) throw IllegalArgumentException("A chain must contain at least one value.")

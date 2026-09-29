@@ -22,8 +22,8 @@ private annotation class Marker
 
 @Marker
 open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false) {
-    protected val entries = mutableListOf<ParsinatorHolder>()
-    protected var rootEntry: ParsinatorHolder? = null
+    @JvmField protected val entries = mutableListOf<ParsinatorHolder>()
+    @JvmField protected var rootEntry: ParsinatorHolder? = null
     fun template(init: @Marker ParsinatorBuilder.() -> Unit) = init
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
         this@ParsinatorBuilder.entries.add(this)
@@ -306,7 +306,8 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         internal fun create(isRoot: Boolean = false) = RepeatingParsinatorBuilder(isRoot)
     }
 }
-@Marker class ParsinatorHolder(@JvmSynthetic internal val parser: AbstractParsinatorParser) {
+
+@Marker class ParsinatorHolder(@JvmSynthetic @JvmField internal val parser: AbstractParsinatorParser) {
     @JvmSynthetic internal var handler: ParsinatorConstructor<*>? = null
 
     infix fun <T> makes(handler: @Marker (Any?) -> T) = parser.apply {

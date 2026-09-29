@@ -33,7 +33,14 @@ value class ParsinatorDebugFlags private constructor(
 
 
     companion object {
+        @JvmStatic
         val NONE = ParsinatorDebugFlags(0)
+        @JvmStatic
+        val PARSER = ParsinatorDebugFlags(0b10000)
+
+        @JvmStatic
+        fun create(flags: Int) = ParsinatorDebugFlags(flags)
+
         private fun merge(vararg flags: Boolean): Int {
             var result = 0
             repeat(flags.size) {
