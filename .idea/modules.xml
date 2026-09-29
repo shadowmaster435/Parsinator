@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Parsinator.iml" filepath="$PROJECT_DIR$/Parsinator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ParsinatorTesting/ParsinatorTesting/ParsinatorTesting.iml" filepath="$PROJECT_DIR$/../ParsinatorTesting/ParsinatorTesting/ParsinatorTesting.iml" />
+    </modules>
+  </component>
+</project>
