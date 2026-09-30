@@ -20,7 +20,10 @@ import net.shadowmaster435.parsinator.util.ParsinatorDebugFlags
 private annotation class Marker
 
 @JvmInline
-@Marker value class ParsinatorTemplate(@JvmSynthetic @JvmField internal val init: @Marker ParsinatorBuilder.() -> Unit)
+@Marker
+value class ParsinatorTemplate internal constructor(
+    @JvmSynthetic @JvmField internal val init: @Marker ParsinatorBuilder.() -> Unit
+)
 
 @Marker
 open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false, protected val isTemplate: Boolean = false) {
