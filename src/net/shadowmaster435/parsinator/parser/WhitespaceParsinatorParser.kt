@@ -9,7 +9,7 @@ class WhitespaceParsinatorParser : AbstractParsinatorParser(false) {
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         while (true) {
-            if (parsinator.char == null || !WHITESPACE.matches(parsinator.char.toString())) {
+            if (parsinator.eof || !WHITESPACE.matches(parsinator.char.toString())) {
                 return null
             }
             relock(parsinator) {parsinator.inc()}

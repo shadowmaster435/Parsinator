@@ -19,7 +19,7 @@ class NameParsinatorParser(@JvmField val allowedChars: Regex, @JvmField val cann
                 }
             }
             val char = parsinator.char
-            if (char == null || !allowedChars.matches(char.toString())) {
+            if (parsinator.eof || !allowedChars.matches(char.toString())) {
                 storage = collected
                 finish(collected, start..parsinator.index)
                 storage = construct(parsinator)

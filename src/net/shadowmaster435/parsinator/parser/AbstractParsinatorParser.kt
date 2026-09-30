@@ -17,6 +17,7 @@ abstract class AbstractParsinatorParser(optional: Boolean) {
     }
     internal var inlinerCallback: ((ParsinatorParserOutput) -> Unit)? = null
 
+    // convenience function
     protected fun construct(parsinator: Parsinator) =
         parsinator.construct(this, storage)
 

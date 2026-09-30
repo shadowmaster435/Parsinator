@@ -25,6 +25,7 @@ class Parsinator(
     var index = 0; private set
     var locked = false; @JvmSynthetic internal set
     val char get() = string.getOrNull(index)
+    val eof get() = char == null
 
     fun inc(by: Int = 1): Int {
         if (locked) throw ParsinatorLockedException()
@@ -50,9 +51,6 @@ class Parsinator(
         return prev
     }
 
-    fun next() {
-        if (locked) throw ParsinatorLockedException()
-    }
     fun substring(offset: Int): String {
         val range = index..<(min(string.length, index + offset))
         return string.substring(range)
@@ -63,6 +61,7 @@ class Parsinator(
         this.actualString = string
         index = 0
         parser.parse(this)?.let {
+            // this block is triggered when a parser returns an error
             if (debugFlags.parserHardThrow) throw ParsinatorParseException(string, ParsinatorError(index, it))
             if (debugFlags.reportParserErrors) {
                 System.err.println(ParsinatorParseException.makeMessage(string, ParsinatorError(min(index, string.length - 1), it)))
@@ -75,6 +74,7 @@ class Parsinator(
 
     }
 
+    // call a parser's "makes" block (if it exists, else just return v) and return what the block returns for storage
     internal fun construct(parser: AbstractParsinatorParser, v: Any?): Any? {
         return handlers[parser]?.func(v) ?: v
     }

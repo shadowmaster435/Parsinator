@@ -23,6 +23,7 @@ class BranchParsinatorParser(
             if (entry.shouldParse(parsinator)) {
                 val parsed = entry.parse(parsinator)
                 if (parsed != null) relock(parsinator) {parsinator.goto(start)} else {
+                    // make sure not to pass null to storage to prevent cluttering chain, recursive, and repeat parsers
                     if (entry !is SkipParsinatorParser) {
                         storage = entry.storage
                         finish(null, start..parsinator.index)
@@ -30,7 +31,6 @@ class BranchParsinatorParser(
                     }
                     return null
                 }
-
             } else error = ParsinatorErrorType.BRANCH_FAIL
             index++
         }

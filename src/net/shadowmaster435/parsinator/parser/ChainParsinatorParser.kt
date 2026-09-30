@@ -21,8 +21,8 @@ class ChainParsinatorParser(
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         val chainStorage = mutableListOf<Any?>()
-        var length = 0
-        var index = 0
+        var length = 0 // amount of successfully parse things
+        var index = 0 // chain index
         val start = parsinator.index
         var first = true
         while (true) {
@@ -34,8 +34,9 @@ class ChainParsinatorParser(
                 return null
             }
             val entry = chain[index]
+            // we do checks for trailing entries passed by a repeat block here
             val trailing = (entry is WrapperParsinatorParser) && (entry.isTrailing)
-            if (trailing && parsinator.char == null) {
+            if (trailing && parsinator.eof) {
                 if (!optional && length < minRequiredLength) return ParsinatorErrorType.CHAIN_INCORRECT_LENGTH
                 storage = chainStorage
                 finish(null, start..parsinator.index)
@@ -58,7 +59,7 @@ class ChainParsinatorParser(
                         entry is WhitespaceParsinatorParser || entry is WrapperParsinatorParser && entry.isWhitespace
                     if (parsed != ParsinatorErrorType.EOF) {
                         if (!isWhitespace) chainStorage.add(entry.storage)
-                    } else if (parsinator.char == null) return ParsinatorErrorType.CHAIN_EOF
+                    } else if (parsinator.eof) return ParsinatorErrorType.CHAIN_EOF
                     else if (!optional) return ParsinatorErrorType.CHAIN_FAIL
                     index++
                 }

@@ -23,7 +23,7 @@ open class RecursiveParsinatorParser(
         val start = parsinator.index
         while (true) {
             started = queueStarted
-            if (parsinator.char == null) {
+            if (parsinator.eof) {
                 relock(parsinator) {parsinator.goto(start)}
                 return if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
@@ -37,15 +37,16 @@ open class RecursiveParsinatorParser(
                     currentStorage.add(new)
                     currentStorage = new
                     storageStack.push(currentStorage)
-                    queueStarted = true
+                    queueStarted = true // set started to be true next iteration
                 }
                 while (shouldDecreaseDepth(parsinator)) {
                     depth--
                     storageStack.pop()
-                    if (depth > 0) currentStorage = storageStack.peek()
+                    if (depth > 0) // prevents an exception caused by the stack being empty
+                        currentStorage = storageStack.peek()
                 }
             }
-            if (depth == 0 && started) {
+            if (depth == 0 && started /* allows condition not to be prematurely met*/) {
                 storage = currentStorage
                 finish(null, start..parsinator.index)
                 storage = construct(parsinator)

@@ -21,7 +21,7 @@ class RepeatParsinatorParser(
             if (parsed != null) {
                 if (parsed == ParsinatorErrorType.EOF) return ParsinatorErrorType.EMPTY_REPEAT
                 if (!canBeEmpty && first && !optional) {
-                    if (parsinator.char == null) {
+                    if (parsinator.eof) {
                         storage = repeatStorage
                         finish(null, start..parsinator.index)
                         return null
@@ -32,11 +32,10 @@ class RepeatParsinatorParser(
                 storage = repeatStorage
                 finish(null, start..parsinator.index)
                 return null
-            } else {
+            } else
                 chain.storage?.let { repeatStorage.addAll(it as Collection<Any?>) }
-            }
 
-            if (parsinator.char == null) {
+            if (parsinator.eof) {
                 storage = repeatStorage
                 finish(null, start..parsinator.index)
                 construct(parsinator)
