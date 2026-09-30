@@ -19,12 +19,14 @@ import net.shadowmaster435.parsinator.util.ParsinatorDebugFlags
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)
 private annotation class Marker
 
+@JvmInline
+@Marker value class ParsinatorTemplate(@JvmSynthetic @JvmField internal val init: @Marker ParsinatorBuilder.() -> Unit)
 
 @Marker
-open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false) {
+open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false, protected val isTemplate: Boolean = false) {
     @JvmField protected val entries = mutableListOf<ParsinatorHolder>()
     @JvmField protected var rootEntry: ParsinatorHolder? = null
-    fun template(init: @Marker ParsinatorBuilder.() -> Unit) = init
+    fun template(init: @Marker ParsinatorBuilder.() -> Unit) = ParsinatorTemplate(init)
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
         this@ParsinatorBuilder.entries.add(this)
         if (this@ParsinatorBuilder.rootEntry == null) this@ParsinatorBuilder.rootEntry = this else this@ParsinatorBuilder.checkThrow()
@@ -52,6 +54,15 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
                 add(holder.parser)
             }
         }.toTypedArray()))
+    }
+
+    open fun use(template: ParsinatorTemplate): ParsinatorHolder {
+        val builder = ParsinatorBuilder(true, true)
+        template.init.invoke(builder)
+        if (builder.entries.isEmpty())
+            throw IllegalStateException("Template cannot be empty")
+        checkThrow()
+        return builder.rootEntry!!.checkRoot()
     }
 
     open fun chain(optional: Boolean, init: @Marker ParsinatorBuilder.() -> Unit): ParsinatorHolder {
@@ -91,9 +102,26 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         ParsinatorHolder(TokenParsinatorParser(string, optional)).checkRoot()
     open fun whitespace() =
         ParsinatorHolder(WhitespaceParsinatorParser()).checkRoot()
-
+    open fun recurse(
+        optional: Boolean,
+        depthIncreaseChar: Char,
+        depthDecreaseChar: Char,
+        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
+    ): ParsinatorHolder {
+        return recurse(optional, {
+            val v = it.char == '{'
+            if (v) it.inc()
+            v
+        }, {
+            val v = it.char == '}'
+            if (v) it.inc()
+            v
+        }, subParser)
+    }
     protected open fun checkThrow() {
-        if (isRoot) throw IllegalArgumentException("Root block may only contain one parser")
+        if (isRoot)
+            if (isTemplate) throw IllegalArgumentException("Templates passed to a use block may only contain one parser")
+            else throw IllegalArgumentException("Root block may only contain one parser")
     }
     companion object {
         @JvmSynthetic
@@ -157,6 +185,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         return v
     }
 
+    override fun use(template: ParsinatorTemplate): ParsinatorHolder {
+        check()
+        val v = super.use(template)
+        v.parser.optional = false
+        return v
+    }
     override fun repeatingChain(
         optional: Boolean,
         init: @Marker (RepeatingParsinatorBuilder.() -> Unit)
@@ -198,7 +232,17 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         v.parser.optional = false
         return v
     }
-
+    override fun recurse(
+        optional: Boolean,
+        depthIncreaseChar: Char,
+        depthDecreaseChar: Char,
+        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
+    ): ParsinatorHolder {
+        check()
+        val v = super.recurse(optional, depthIncreaseChar, depthDecreaseChar, subParser)
+        v.parser.optional = false
+        return v
+    }
     override fun repeating(
         optional: Boolean,
         canBeEmpty: Boolean,
@@ -275,6 +319,10 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         return super.chain(optional, init)
     }
 
+    override fun use(template: ParsinatorTemplate): ParsinatorHolder {
+        check()
+        return super.use(template)
+    }
     override fun name(
         optional: Boolean,
         allowedCharacters: Regex,
@@ -283,6 +331,18 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         check()
         return super.name(optional, allowedCharacters, cannotStartWith)
     }
+
+
+    override fun recurse(
+        optional: Boolean,
+        depthIncreaseChar: Char,
+        depthDecreaseChar: Char,
+        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
+    ): ParsinatorHolder {
+        check()
+        return super.recurse(optional, depthIncreaseChar, depthDecreaseChar, subParser)
+    }
+
 
     override fun recurse(
         optional: Boolean,
