@@ -40,10 +40,10 @@ kotlin {
         commonMain.dependencies {
             implementation(kotlin("stdlib"))
         }
-        jvmMain.dependencies {
+        nativeMain.dependencies {
             implementation(kotlin("stdlib"))
         }
-        nativeMain.dependencies {
+        jvmMain.dependencies {
             implementation(kotlin("stdlib"))
         }
     }
