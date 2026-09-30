@@ -21,7 +21,7 @@ private annotation class Marker
 
 @JvmInline
 @Marker
-value class ParsinatorTemplate internal constructor(
+value class ParsinatorTemplate internal constructor( // exists to prevent autocomplete from trying to add a code block
     @JvmSynthetic @JvmField internal val init: @Marker ParsinatorBuilder.() -> Unit
 )
 
