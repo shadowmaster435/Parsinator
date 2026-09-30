@@ -18,6 +18,8 @@ open class Stack<T> : MutableList<T> {
     constructor(from: Collection<T>) : this() {
         holderList = ArrayList(from)
     }
+
+    override fun toString() = "$holderList"
     //region boilerplate
     override fun isEmpty() = holderList.isEmpty()
     override fun contains(element: T) = holderList.contains(element)

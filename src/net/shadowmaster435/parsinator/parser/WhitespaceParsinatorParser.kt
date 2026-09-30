@@ -12,7 +12,7 @@ class WhitespaceParsinatorParser : AbstractParsinatorParser(false) {
             if (parsinator.char == null || !WHITESPACE.matches(parsinator.char.toString())) {
                 return null
             }
-            parsinator.inc()
+            relock(parsinator) {parsinator.inc()}
         }
     }
     companion object {

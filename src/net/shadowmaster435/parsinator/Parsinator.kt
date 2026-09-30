@@ -59,6 +59,7 @@ class Parsinator(
     }
 
     fun parse(string: String) {
+        locked = true
         this.actualString = string
         index = 0
         parser.parse(this)?.let {
@@ -70,6 +71,7 @@ class Parsinator(
             index = string.length
         }
         this.actualString = null
+        locked = false
 
     }
 

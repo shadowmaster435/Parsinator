@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="Parsinator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Parsinator_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Parsinator.jar">
+        <element id="module-output" name="Parsinator" />
+      </element>
+      <element id="library" level="project" name="KotlinJavaRuntime" />
+    </root>
+  </artifact>
+</component>

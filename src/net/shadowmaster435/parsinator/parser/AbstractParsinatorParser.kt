@@ -11,9 +11,9 @@ abstract class AbstractParsinatorParser(optional: Boolean) {
     abstract fun shouldParse(parsinator: Parsinator): Boolean
     abstract fun parse(parsinator: Parsinator): ParsinatorErrorType?
     protected fun relock(parsinator: Parsinator, block: () -> Unit) {
-        parsinator.locked = true
-        block()
         parsinator.locked = false
+        block()
+        parsinator.locked = true
     }
     internal var inlinerCallback: ((ParsinatorParserOutput) -> Unit)? = null
 

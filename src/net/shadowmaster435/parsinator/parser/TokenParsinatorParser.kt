@@ -10,7 +10,7 @@ class TokenParsinatorParser(@JvmField val string: String, optional: Boolean) : A
 
         if (parsinator.substring(string.length) == string) {
             val start = parsinator.index
-            parsinator.inc(string.length)
+            relock(parsinator) {parsinator.inc(string.length)}
             storage = string
             finish(string, start..parsinator.index)
 

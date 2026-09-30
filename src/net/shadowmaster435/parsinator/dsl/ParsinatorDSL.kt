@@ -33,13 +33,14 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
 
     open fun branch(optional: Boolean, init: @Marker BranchParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = BranchParsinatorBuilder.create()
+        val list = mutableListOf<AbstractParsinatorParser>()
         builder.init()
-        return ParsinatorHolder(BranchParsinatorParser(optional, *buildList {
-            for (holder in builder.entries) {
-                this@ParsinatorBuilder.entries.add(holder)
-                add(holder.parser)
-            }
-        }.toTypedArray())).checkRoot()
+        for (holder in builder.entries) {
+            entries.add(holder)
+
+            list.add(holder.parser)
+        }
+        return ParsinatorHolder(BranchParsinatorParser(optional, *list.toTypedArray())).checkRoot()
     }
 
     protected open fun repeatingChain(optional: Boolean, init: @Marker RepeatingParsinatorBuilder.() -> Unit): ParsinatorHolder {
@@ -71,10 +72,15 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
-        subParser: AbstractParsinatorParser,
-    ) = ParsinatorHolder(RecursiveParsinatorParser(
-        shouldIncreaseDepth, shouldDecreaseDepth, subParser, optional)
-    ).checkRoot()
+        subParser: @Marker RecursiveParsinatorBuilder.() -> Unit,
+    ): ParsinatorHolder {
+        val builder = RecursiveParsinatorBuilder.create()
+        builder.subParser()
+        entries.add(builder.rootEntry!!)
+        return ParsinatorHolder(RecursiveParsinatorParser(
+            shouldIncreaseDepth, shouldDecreaseDepth, builder.rootEntry!!.parser, optional)
+        ).checkRoot()
+    }
 
     open fun repeating(optional: Boolean, canBeEmpty: Boolean, init: @Marker RepeatingParsinatorBuilder.() -> Unit) =
         ParsinatorHolder(
@@ -105,6 +111,17 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         }
     }
 }
+@Marker class RecursiveParsinatorBuilder private constructor(): ParsinatorBuilder(false) {
+    override fun checkThrow() {
+        if (isRoot) throw IllegalArgumentException("Recursion subParser block may only contain one parser")
+    }
+    companion object {
+        @JvmSynthetic
+        internal fun create() = RecursiveParsinatorBuilder()
+    }
+}
+
+
 @Marker class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): ParsinatorBuilder(isRoot) {
     private var exited = false
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
@@ -174,7 +191,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
-        subParser: AbstractParsinatorParser
+        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
         val v = super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, subParser)
@@ -271,7 +288,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
-        subParser: AbstractParsinatorParser
+        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
         return super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, subParser)

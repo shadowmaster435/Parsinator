@@ -26,7 +26,7 @@ class NameParsinatorParser(@JvmField val allowedChars: Regex, @JvmField val cann
                 return null
             }
             collected += parsinator.char
-            parsinator.inc()
+            relock(parsinator) {parsinator.inc()}
         }
     }
 }

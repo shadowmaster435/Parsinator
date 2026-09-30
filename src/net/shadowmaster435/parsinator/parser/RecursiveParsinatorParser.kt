@@ -14,42 +14,50 @@ open class RecursiveParsinatorParser(
     override fun shouldParse(parsinator: Parsinator) = shouldIncreaseDepth(parsinator)
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
-        val recursionStorage = mutableListOf<Any?>()
+        var currentStorage = mutableListOf<Any?>()
         val storageStack = Stack<MutableList<Any?>>()
 
-        var depth = 1
+        var depth = 0
+        var started: Boolean
+        var queueStarted = false
         val start = parsinator.index
         while (true) {
-            if (!parsinator.inbounds(parsinator.index - start)) {
-                parsinator.goto(start)
+            started = queueStarted
+            if (parsinator.char == null) {
+                relock(parsinator) {parsinator.goto(start)}
                 return if (optional) {
-                    parsinator.goto(start)
+                    relock(parsinator) {parsinator.goto(start)}
                     null
                 } else ParsinatorErrorType.EOF
             }
             relock(parsinator) {
-                if (shouldIncreaseDepth(parsinator)) {
+                while (shouldIncreaseDepth(parsinator)) {
                     depth++
-                    storageStack.push(mutableListOf())
+                    val new = mutableListOf<Any?>()
+                    currentStorage.add(new)
+                    currentStorage = new
+                    storageStack.push(currentStorage)
+                    queueStarted = true
                 }
-                if (shouldDecreaseDepth(parsinator)) {
+                while (shouldDecreaseDepth(parsinator)) {
                     depth--
-                    recursionStorage.add(storageStack.pop())
+                    storageStack.pop()
+                    if (depth > 0) currentStorage = storageStack.peek()
                 }
             }
-            if (depth == 0) {
-                storage = recursionStorage
+            if (depth == 0 && started) {
+                storage = currentStorage
                 finish(null, start..parsinator.index)
-                construct(parsinator)
+                storage = construct(parsinator)
                 return null
             }
             val parsed = subParser.parse(parsinator)
             if (parsed != null) {
                 return if (optional) {
-                    parsinator.goto(start)
+                    relock(parsinator) {parsinator.goto(start)}
                     null
                 } else parsed
-            } else storageStack.peek().add(subParser.storage)
+            } else currentStorage.add(parsinator.construct(subParser, subParser.storage))
         }
     }
 }
