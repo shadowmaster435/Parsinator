@@ -75,9 +75,8 @@ class Parsinator(
     }
 
     // call a parser's "makes" block (if it exists, else just return v) and return what the block returns for storage
-    internal fun construct(parser: AbstractParsinatorParser, v: Any?): Any? {
-        return handlers[parser]?.func(v) ?: v
-    }
+    @JvmSynthetic
+    internal fun construct(parser: AbstractParsinatorParser, v: Any?) = handlers[parser]?.func(v) ?: v
 
     private fun boundsDebug(newIndex: Int): Boolean {
         if (debugFlags.indexHardThrow) throw ParsinatorIllegalIndexException(string.length, newIndex)
