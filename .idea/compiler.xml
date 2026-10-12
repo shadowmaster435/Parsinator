@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="24">
+      <module name="com.example.Parsinator" target="24" />
+      <module name="com.example.Parsinator.testNative" target="24" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
