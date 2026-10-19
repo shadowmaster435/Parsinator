@@ -61,9 +61,7 @@ tasks.register<Zip>("packageLinuxKlib") {
     from(layout.buildDirectory.dir("classes/kotlin/nativeLinux/main/klib/parsinator"))
 }
 
-tasks.findByPath(":parsinator:assemble")?.let {
-    it.finalizedBy("packageLinuxKlib")
-}
+tasks.findByPath(":parsinator:assemble")?.finalizedBy("packageLinuxKlib")
 tasks.findByPath(":wrapper")?.let { wrapper ->
     wrapper as Wrapper
     wrapper.gradleVersion = "9.8.0"
