@@ -15,8 +15,8 @@ class TokenParsinatorParser(
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {
         val w = WhitespaceParsinatorParser.WHITESPACE
         val b = !requiresSurroundingWhitespace
-        val first = b || w.matches(parsinator.atOffset(-1) ?: "0")
-        val last =  b || w.matches(parsinator.atOffset(string.length) ?: "0")
+        val first = b || w.matches(parsinator.atOffset(-1) ?: " ")
+        val last =  b || w.matches(parsinator.atOffset(string.length) ?: " ")
         if (
             first && last &&
             parsinator.substring(string.length) == string
