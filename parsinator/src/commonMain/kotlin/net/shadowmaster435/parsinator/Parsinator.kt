@@ -26,6 +26,7 @@ class Parsinator(
     var locked = false; @JvmSynthetic internal set
     val char get() = string.getOrNull(index)
     val eof get() = char == null
+    val last get() = string.getOrNull(index - 1)
 
     fun inc(by: Int = 1): Int {
         if (locked) throw ParsinatorLockedException()
@@ -34,6 +35,8 @@ class Parsinator(
         index += by
         return prev
     }
+
+    fun atOffset(by: Int) = string.getOrNull(by) ?.toString()
 
     fun dec(by: Int = 1): Int {
         if (locked) throw ParsinatorLockedException()

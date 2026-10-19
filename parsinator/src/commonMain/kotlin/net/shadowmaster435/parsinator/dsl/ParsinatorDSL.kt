@@ -128,10 +128,10 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
             RepeatParsinatorParser(canBeEmpty, repeatingChain(optional, init).parser as ChainParsinatorParser, optional)
         ).checkRoot()
 
-    open fun token(optional: Boolean, string: String) =
-        ParsinatorHolder(TokenParsinatorParser(string, optional)).checkRoot()
-    open fun whitespace() =
-        ParsinatorHolder(WhitespaceParsinatorParser()).checkRoot()
+    open fun token(optional: Boolean, string: String, requiresSurroundingWhitespace: Boolean = true) =
+        ParsinatorHolder(TokenParsinatorParser(string, optional, requiresSurroundingWhitespace)).checkRoot()
+    open fun whitespace(optional: Boolean = true) =
+        ParsinatorHolder(WhitespaceParsinatorParser(optional)).checkRoot()
     open fun recurse(
         optional: Boolean,
         depthIncreaseChar: Char,
@@ -293,16 +293,17 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     override fun token(
         optional: Boolean,
         string: String,
+        requiresSurroundingWhitespace: Boolean
     ): ParsinatorHolder {
         check()
-        val v = super.token(optional, string)
+        val v = super.token(optional, string, requiresSurroundingWhitespace)
         v.parser.optional = false
         return v
     }
 
-    override fun whitespace(): ParsinatorHolder {
+    override fun whitespace(optional: Boolean): ParsinatorHolder {
         check()
-        val v = super.whitespace()
+        val v = super.whitespace(optional)
         v.parser.optional = false
         return v
     }
@@ -414,14 +415,15 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
     override fun token(
         optional: Boolean,
         string: String,
+        requiresSurroundingWhitespace: Boolean
     ): ParsinatorHolder {
         check()
-        return super.token(optional, string)
+        return super.token(optional, string, requiresSurroundingWhitespace)
     }
 
-    override fun whitespace(): ParsinatorHolder {
+    override fun whitespace(optional: Boolean): ParsinatorHolder {
         check()
-        return super.whitespace()
+        return super.whitespace(optional)
     }
     override fun checkThrow() {
         if (isRoot) throw IllegalArgumentException("Trailing branch block may only contain one parser")

@@ -5,12 +5,22 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
-class TokenParsinatorParser(@JvmField val string: String, optional: Boolean) : AbstractParsinatorParser(optional) {
+class TokenParsinatorParser(
+    @JvmField val string: String,
+    optional: Boolean,
+    val requiresSurroundingWhitespace: Boolean
+) : AbstractParsinatorParser(optional) {
     override fun shouldParse(parsinator: Parsinator) = true
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {
-
-        if (parsinator.substring(string.length) == string) {
+        val w = WhitespaceParsinatorParser.WHITESPACE
+        val b = !requiresSurroundingWhitespace
+        val first = b || w.matches(parsinator.atOffset(-1) ?: "0")
+        val last =  b || w.matches(parsinator.atOffset(string.length) ?: "0")
+        if (
+            first && last &&
+            parsinator.substring(string.length) == string
+        ) {
             val start = parsinator.index
             relock(parsinator) {parsinator.inc(string.length)}
             storage = string
