@@ -139,8 +139,14 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     /**
      * Return null for no error, passes [ManualParsinatorParser.held] to a makes function.
      * Incrementing [Parsinator.index] is not automatically incremented and must be handled.
+     * If an error is return and [optional] is true, [Parsinator.index] is set back to where parsing started.
+     *
      */
-    open fun manual(optional: Boolean, parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?) =
+    open fun manual(
+        optional: Boolean,
+        canParse: (parsinator: Parsinator) -> Boolean = {true},
+        parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
+    ) =
         ParsinatorHolder(
             ManualParsinatorParser(
                 optional,
@@ -390,6 +396,18 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
         return v
     }
 
+
+    override fun manual(
+        optional: Boolean,
+        canParse: (parsinator: Parsinator) -> Boolean,
+        parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
+    ): ParsinatorHolder {
+        check()
+        val v = super.manual(optional, canParse, parseFunc)
+        v.parser.optional = false
+        return v
+    }
+
     override fun whitespace(optional: Boolean): ParsinatorHolder {
         check()
         val v = super.whitespace(optional)
@@ -475,6 +493,15 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
     ): ParsinatorHolder {
         check()
         return super.name(optional, allowedCharacters, cannotStartWith)
+    }
+
+    override fun manual(
+        optional: Boolean,
+        canParse: (parsinator: Parsinator) -> Boolean,
+        parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
+    ): ParsinatorHolder {
+        check()
+        return super.manual(optional, canParse, parseFunc)
     }
 
     override fun group(

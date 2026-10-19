@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Surrounding whitespace parameter for tokens">
-      <change afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ManualParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/build.gradle.kts" afterDir="false" />
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="KDoc and manual parser">
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -360,7 +357,8 @@
     <MESSAGE value="Now compiles to both native and jvm" />
     <MESSAGE value="Klib compilation" />
     <MESSAGE value="Surrounding whitespace parameter for tokens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Surrounding whitespace parameter for tokens" />
+    <MESSAGE value="KDoc and manual parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="KDoc and manual parser" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
