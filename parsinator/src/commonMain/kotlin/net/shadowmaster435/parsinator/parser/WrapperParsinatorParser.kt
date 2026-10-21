@@ -8,7 +8,7 @@ import kotlin.jvm.JvmSynthetic
 internal class WrapperParsinatorParser(
     @JvmField val parser: AbstractParsinatorParser,
     @JvmSynthetic internal val isTrailing: Boolean = false,
-): AbstractParsinatorParser(parser.optional) {
+): AbstractParsinatorParser(parser.optional, parser.excludeFromChains) {
     override fun shouldParse(parsinator: Parsinator) = parser.shouldParse(parsinator)
     @JvmField val isWhitespace = parser is WhitespaceParsinatorParser
 

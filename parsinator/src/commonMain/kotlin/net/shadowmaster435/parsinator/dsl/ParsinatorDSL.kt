@@ -53,7 +53,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
      * If not optional, an [BranchParsinatorBuilder.exit] is not defined, and no branches succeeded it will return a
      * [ParsinatorErrorType.BRANCH_FAIL] error.
      */
-    open fun branch(optional: Boolean, init: @Marker BranchParsinatorBuilder.() -> Unit): ParsinatorHolder {
+    open fun branch(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker BranchParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = BranchParsinatorBuilder.create()
         val list = mutableListOf<AbstractParsinatorParser>()
         builder.init()
@@ -64,18 +64,18 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         }
         return ParsinatorHolder(
             BranchParsinatorParser(
-                optional,
+                optional, excludeFromChains,
                 *list.toTypedArray()
             )
         ).checkRoot()
     }
 
-    protected open fun repeatingChain(optional: Boolean, init: @Marker RepeatingParsinatorBuilder.() -> Unit): ParsinatorHolder {
+    protected open fun repeatingChain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker RepeatingParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = RepeatingParsinatorBuilder.create()
         builder.init()
         return ParsinatorHolder(
             ChainParsinatorParser(
-                optional,
+                optional, excludeFromChains,
                 *buildList {
                     for (holder in builder.entries) {
                         this@ParsinatorBuilder.entries.add(holder)
@@ -104,12 +104,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
      * If a sub parser is optional it will be skipped if it fails but no list entry will be substituted,
      * thus, changing the length of the list. Make sure to account for this.
      */
-    open fun chain(optional: Boolean, init: @Marker ParsinatorBuilder.() -> Unit): ParsinatorHolder {
+    open fun chain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker ParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = ParsinatorBuilder()
         builder.init()
         return ParsinatorHolder(
             ChainParsinatorParser(
-                optional,
+                optional, excludeFromChains,
                 *buildList {
                     for (holder in builder.entries) {
                         this@ParsinatorBuilder.entries.add(holder)
@@ -127,12 +127,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
      * Something to note is that the regexes here only care about one character at a time so lookaheads and whatnot
      * will not work here. If you need more granular control use a [manual] parser
      */
-    open fun name(optional: Boolean, allowedCharacters: Regex, cannotStartWith: Regex? = null) =
+    open fun name(optional: Boolean, allowedCharacters: Regex, cannotStartWith: Regex? = null, excludeFromChains: Boolean = false) =
         ParsinatorHolder(
             NameParsinatorParser(
                 allowedCharacters,
                 cannotStartWith,
-                optional
+                optional, excludeFromChains
             )
         ).checkRoot()
 
@@ -145,11 +145,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun manual(
         optional: Boolean,
         canParse: (parsinator: Parsinator) -> Boolean = {true},
+        excludeFromChains: Boolean = false,
         parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
     ) =
         ParsinatorHolder(
             ManualParsinatorParser(
-                optional,
+                optional, excludeFromChains,
                 parseFunc,
             )
         ).checkRoot()
@@ -166,6 +167,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
+        excludeFromChains: Boolean = false,
         subParser: @Marker RecursiveParsinatorBuilder.() -> Unit,
     ): ParsinatorHolder {
         val builder = RecursiveParsinatorBuilder.create()
@@ -173,7 +175,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         entries.add(builder.rootEntry!!)
         return ParsinatorHolder(
             RecursiveParsinatorParser(
-                shouldIncreaseDepth, shouldDecreaseDepth, builder.rootEntry!!.parser, optional
+                shouldIncreaseDepth, shouldDecreaseDepth, builder.rootEntry!!.parser, optional, excludeFromChains
             )
         ).checkRoot()
     }
@@ -191,17 +193,17 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
      * A [ParsinatorErrorType.EMPTY_REPEAT] error will be returned.
      * Otherwise, if it can be empty it will simply return an empty list regardless of the state of [optional]
      */
-    open fun repeating(optional: Boolean, canBeEmpty: Boolean, init: @Marker RepeatingParsinatorBuilder.() -> Unit) =
+    open fun repeating(optional: Boolean, canBeEmpty: Boolean, excludeFromChains: Boolean = false, init: @Marker RepeatingParsinatorBuilder.() -> Unit) =
         ParsinatorHolder(
-            RepeatParsinatorParser(canBeEmpty, repeatingChain(optional, init).parser as ChainParsinatorParser, optional)
+            RepeatParsinatorParser(canBeEmpty, repeatingChain(optional, excludeFromChains, init).parser as ChainParsinatorParser, optional, excludeFromChains)
         ).checkRoot()
 
     /**
      * A simple string check.
      * Passes [string] to its makes function if defined.
      */
-    open fun token(optional: Boolean, string: String, requiresSurroundingWhitespace: Boolean = true) =
-        ParsinatorHolder(TokenParsinatorParser(string, optional, requiresSurroundingWhitespace)).checkRoot()
+    open fun token(optional: Boolean, string: String, requiresSurroundingWhitespace: Boolean = true, excludeFromChains: Boolean = false) =
+        ParsinatorHolder(TokenParsinatorParser(string, optional, excludeFromChains, requiresSurroundingWhitespace)).checkRoot()
 
     /**
      * Adds a whitespace requirement.
@@ -214,25 +216,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun whitespace(optional: Boolean = true) =
         ParsinatorHolder(WhitespaceParsinatorParser(optional)).checkRoot()
 
-    /**
-     * A simpler version of [recurse] using only single characters for pairs.
-     */
-    open fun group(
-        optional: Boolean,
-        depthIncreaseChar: Char,
-        depthDecreaseChar: Char,
-        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
-    ): ParsinatorHolder {
-        return recurse(optional, {
-            val v = it.char == depthIncreaseChar
-            if (v) it.inc()
-            v
-        }, {
-            val v = it.char == depthDecreaseChar
-            if (v) it.inc()
-            v
-        }, subParser)
-    }
+
     protected open fun checkThrow() {
         if (isRoot)
             if (isTemplate) throw IllegalArgumentException("Templates passed to a use block may only contain one parser")
@@ -307,10 +291,11 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     }
     override fun branch(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (BranchParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        val v = super.branch(optional, init)
+        val v = super.branch(optional, excludeFromChains, init)
         v.parser.optional = false
         return v
     }
@@ -323,19 +308,21 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     }
     override fun repeatingChain(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (RepeatingParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        val v = super.repeatingChain(optional, init)
+        val v = super.repeatingChain(optional, excludeFromChains, init)
         v.parser.optional = false
         return v
     }
     override fun chain(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (ParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        val v = super.chain(optional, init)
+        val v = super.chain(optional, excludeFromChains, init)
         v.parser.optional = false
         return v
     }
@@ -344,9 +331,10 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
         optional: Boolean,
         allowedCharacters: Regex,
         cannotStartWith: Regex?,
+        excludeFromChains: Boolean,
     ): ParsinatorHolder {
         check()
-        val v = super.name(optional, allowedCharacters, cannotStartWith)
+        val v = super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains)
         v.parser.optional = false
         return v
     }
@@ -355,32 +343,24 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
+        excludeFromChains: Boolean,
         subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        val v = super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, subParser)
+        val v = super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, excludeFromChains, subParser)
         v.parser.optional = false
         return v
     }
 
-    override fun group(
-        optional: Boolean,
-        depthIncreaseChar: Char,
-        depthDecreaseChar: Char,
-        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
-    ): ParsinatorHolder {
-        check()
-        val v = super.group(optional, depthIncreaseChar, depthDecreaseChar, subParser)
-        v.parser.optional = false
-        return v
-    }
+
     override fun repeating(
         optional: Boolean,
         canBeEmpty: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (RepeatingParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        val v = super.repeating(optional, canBeEmpty, init)
+        val v = super.repeating(optional, canBeEmpty, excludeFromChains, init)
         v.parser.optional = false
         return v
     }
@@ -388,10 +368,11 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     override fun token(
         optional: Boolean,
         string: String,
-        requiresSurroundingWhitespace: Boolean
+        requiresSurroundingWhitespace: Boolean,
+        excludeFromChains: Boolean,
     ): ParsinatorHolder {
         check()
-        val v = super.token(optional, string, requiresSurroundingWhitespace)
+        val v = super.token(optional, string, requiresSurroundingWhitespace, excludeFromChains)
         v.parser.optional = false
         return v
     }
@@ -400,10 +381,11 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     override fun manual(
         optional: Boolean,
         canParse: (parsinator: Parsinator) -> Boolean,
+        excludeFromChains: Boolean,
         parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
     ): ParsinatorHolder {
         check()
-        val v = super.manual(optional, canParse, parseFunc)
+        val v = super.manual(optional, canParse, excludeFromChains, parseFunc)
         v.parser.optional = false
         return v
     }
@@ -462,24 +444,27 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
     }
     override fun branch(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (BranchParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        return super.branch(optional, init)
+        return super.branch(optional, excludeFromChains, init)
     }
     override fun repeatingChain(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (RepeatingParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        return super.repeatingChain(optional, init)
+        return super.repeatingChain(optional, excludeFromChains, init)
     }
     override fun chain(
         optional: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (ParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        return super.chain(optional, init)
+        return super.chain(optional, excludeFromChains, init)
     }
 
     override fun use(template: ParsinatorTemplate): ParsinatorHolder {
@@ -490,28 +475,20 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
         optional: Boolean,
         allowedCharacters: Regex,
         cannotStartWith: Regex?,
+        excludeFromChains: Boolean,
     ): ParsinatorHolder {
         check()
-        return super.name(optional, allowedCharacters, cannotStartWith)
+        return super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains)
     }
 
     override fun manual(
         optional: Boolean,
         canParse: (parsinator: Parsinator) -> Boolean,
+        excludeFromChains: Boolean,
         parseFunc: ManualParsinatorParser.(parsinator: Parsinator) -> ParsinatorErrorType?
     ): ParsinatorHolder {
         check()
-        return super.manual(optional, canParse, parseFunc)
-    }
-
-    override fun group(
-        optional: Boolean,
-        depthIncreaseChar: Char,
-        depthDecreaseChar: Char,
-        subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
-    ): ParsinatorHolder {
-        check()
-        return super.group(optional, depthIncreaseChar, depthDecreaseChar, subParser)
+        return super.manual(optional, canParse, excludeFromChains, parseFunc)
     }
 
 
@@ -519,28 +496,31 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
         optional: Boolean,
         shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
         shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
+        excludeFromChains: Boolean,
         subParser: @Marker (RecursiveParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        return super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, subParser)
+        return super.recurse(optional, shouldIncreaseDepth, shouldDecreaseDepth, excludeFromChains, subParser)
     }
 
     override fun repeating(
         optional: Boolean,
         canBeEmpty: Boolean,
+        excludeFromChains: Boolean,
         init: @Marker (RepeatingParsinatorBuilder.() -> Unit)
     ): ParsinatorHolder {
         check()
-        return super.repeating(optional, canBeEmpty, init)
+        return super.repeating(optional, canBeEmpty, excludeFromChains, init)
     }
 
     override fun token(
         optional: Boolean,
         string: String,
-        requiresSurroundingWhitespace: Boolean
+        requiresSurroundingWhitespace: Boolean,
+        excludeFromChains: Boolean,
     ): ParsinatorHolder {
         check()
-        return super.token(optional, string, requiresSurroundingWhitespace)
+        return super.token(optional, string, requiresSurroundingWhitespace, excludeFromChains)
     }
 
     override fun whitespace(optional: Boolean): ParsinatorHolder {

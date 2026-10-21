@@ -6,8 +6,9 @@ import kotlin.jvm.JvmField
 
 class ChainParsinatorParser(
     optional: Boolean,
+    excludeFromChains: Boolean,
     @JvmField vararg val chain: AbstractParsinatorParser,
-) : AbstractParsinatorParser(optional) {
+) : AbstractParsinatorParser(optional, excludeFromChains) {
     init {
         if (chain.isEmpty()) throw IllegalArgumentException("A chain must contain at least one value.")
     }
@@ -38,9 +39,11 @@ class ChainParsinatorParser(
             val trailing = (entry is WrapperParsinatorParser) && (entry.isTrailing)
             if (trailing && parsinator.eof) {
                 if (!optional && length < minRequiredLength) return ParsinatorErrorType.CHAIN_INCORRECT_LENGTH
-                storage = chainStorage
-                finish(null, start..parsinator.index)
-                storage = construct(parsinator)
+                if (!entry.excludeFromChains) {
+                    storage = chainStorage
+                    finish(null, start..parsinator.index)
+                    storage = construct(parsinator)
+                }
                 return null
             }
             if (first || entry.shouldParse(parsinator)) {
@@ -58,7 +61,7 @@ class ChainParsinatorParser(
                     val isWhitespace =
                         entry is WhitespaceParsinatorParser || entry is WrapperParsinatorParser && entry.isWhitespace
                     if (parsed != ParsinatorErrorType.EOF) {
-                        if (!isWhitespace) chainStorage.add(entry.storage)
+                        if (!isWhitespace && !entry.excludeFromChains) chainStorage.add(entry.storage)
                     } else if (parsinator.eof) return ParsinatorErrorType.CHAIN_EOF
                     else if (!optional) return ParsinatorErrorType.CHAIN_FAIL
                     index++

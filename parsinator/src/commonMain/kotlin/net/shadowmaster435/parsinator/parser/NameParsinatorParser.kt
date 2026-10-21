@@ -5,7 +5,13 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
-class NameParsinatorParser(@JvmField val allowedChars: Regex, @JvmField val cannotStartWith: Regex? = null, optional: Boolean) : AbstractParsinatorParser(optional) {
+class NameParsinatorParser(
+    @JvmField val allowedChars: Regex,
+    @JvmField val cannotStartWith: Regex? = null,
+    optional: Boolean,
+    excludeFromChains: Boolean,
+
+) : AbstractParsinatorParser(optional, excludeFromChains) {
     override fun shouldParse(parsinator: Parsinator) = parsinator.inbounds(0) && allowedChars.matches(parsinator.char.toString())
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {
