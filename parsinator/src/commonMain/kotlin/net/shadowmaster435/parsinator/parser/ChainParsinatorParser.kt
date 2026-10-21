@@ -39,11 +39,9 @@ class ChainParsinatorParser(
             val trailing = (entry is WrapperParsinatorParser) && (entry.isTrailing)
             if (trailing && parsinator.eof) {
                 if (!optional && length < minRequiredLength) return ParsinatorErrorType.CHAIN_INCORRECT_LENGTH
-                if (!entry.excludeFromChains) {
-                    storage = chainStorage
-                    finish(null, start..parsinator.index)
-                    storage = construct(parsinator)
-                }
+                storage = chainStorage
+                finish(null, start..parsinator.index)
+                storage = construct(parsinator)
                 return null
             }
             if (first || entry.shouldParse(parsinator)) {
