@@ -6,7 +6,7 @@ import net.shadowmaster435.parsinator.util.ParsinatorParserOutput
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
-abstract class AbstractParsinatorParser(optional: Boolean) {
+abstract class AbstractParsinatorParser(optional: Boolean, val excludeFromChains: Boolean) {
     var optional = optional; @JvmSynthetic internal set
 
     @JvmSynthetic internal open var storage: Any? = null

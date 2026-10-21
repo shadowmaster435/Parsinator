@@ -11,7 +11,9 @@ open class RecursiveParsinatorParser(
     @JvmField val shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
     @JvmField val subParser: AbstractParsinatorParser,
     optional: Boolean,
-) : AbstractParsinatorParser(optional) {
+    excludeFromChains: Boolean,
+
+) : AbstractParsinatorParser(optional, excludeFromChains) {
 
     override fun shouldParse(parsinator: Parsinator) = shouldIncreaseDepth(parsinator)
 

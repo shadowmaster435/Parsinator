@@ -8,8 +8,10 @@ import kotlin.jvm.JvmSynthetic
 class TokenParsinatorParser(
     @JvmField val string: String,
     optional: Boolean,
+    excludeFromChains: Boolean,
+
     val requiresSurroundingWhitespace: Boolean
-) : AbstractParsinatorParser(optional) {
+) : AbstractParsinatorParser(optional, true) {
     override fun shouldParse(parsinator: Parsinator) = true
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {

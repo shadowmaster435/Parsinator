@@ -7,8 +7,9 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 class BranchParsinatorParser(
     optional: Boolean,
+    excludeFromChains: Boolean,
     @JvmField vararg val branches: AbstractParsinatorParser,
-) : AbstractParsinatorParser(optional) {
+) : AbstractParsinatorParser(optional, excludeFromChains) {
     init {
         if (branches.size < 2) throw IllegalArgumentException("A branch must contain at least two values.")
     }

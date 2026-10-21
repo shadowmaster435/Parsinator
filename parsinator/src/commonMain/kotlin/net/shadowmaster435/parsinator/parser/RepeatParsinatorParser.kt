@@ -9,8 +9,10 @@ import kotlin.jvm.JvmSynthetic
 class RepeatParsinatorParser(
     @JvmField val canBeEmpty: Boolean,
     @JvmField val chain: ChainParsinatorParser,
-    optional: Boolean
-) : AbstractParsinatorParser(optional) {
+    optional: Boolean,
+    excludeFromChains: Boolean,
+
+) : AbstractParsinatorParser(optional, excludeFromChains) {
 
     override fun shouldParse(parsinator: Parsinator) = chain.shouldParse(parsinator)
 

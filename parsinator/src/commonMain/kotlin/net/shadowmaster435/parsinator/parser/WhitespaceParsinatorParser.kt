@@ -5,7 +5,9 @@ import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
-class WhitespaceParsinatorParser(optional: Boolean) : AbstractParsinatorParser(optional) {
+class WhitespaceParsinatorParser(
+    optional: Boolean,
+) : AbstractParsinatorParser(optional, true) {
 
     override fun shouldParse(parsinator: Parsinator) = parsinator.char?.let{ WHITESPACE.matches(it.toString())} ?: false
 

@@ -6,7 +6,7 @@ import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 
-class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((char: Char) -> Boolean)? = null) : AbstractParsinatorParser(false) {
+class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((char: Char) -> Boolean)? = null) : AbstractParsinatorParser(false, true) {
     override fun shouldParse(parsinator: Parsinator) = true
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         relock(parsinator) {
