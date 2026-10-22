@@ -29,7 +29,7 @@ class NameParsinatorParser(
             val char = parsinator.char
             if (parsinator.eof || !allowedChars.matches(char.toString())) {
                 storage = collected
-                finish(collected, start..parsinator.index)
+                finish(parsinator.string, start..parsinator.index)
                 storage = construct(parsinator)
                 return null
             }
