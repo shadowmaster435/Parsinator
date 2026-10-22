@@ -160,6 +160,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Parsinator [allMetadataJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="allMetadataJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
     <configuration name="Parsinator [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -235,31 +260,6 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="Parsinator [linuxX64MainKlibrary]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="linuxX64MainKlibrary" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
     <configuration name="Parsinator [nativeLinuxMainKlibrary]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -314,8 +314,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.Test" />
+      <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
       <item itemvalue="Gradle.Parsinator [build]" />
-      <item itemvalue="Gradle.Parsinator [linuxX64MainKlibrary]" />
       <item itemvalue="Gradle.Parsinator [nativeLinuxMainKlibrary]" />
       <item itemvalue="Gradle.Parsinator [assemble]" />
       <item itemvalue="Gradle.Parsinator [linuxX64Binaries]" />
@@ -324,10 +324,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Parsinator [assemble]" />
+        <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
         <item itemvalue="Gradle.Parsinator [build]" />
         <item itemvalue="Gradle.Parsinator [nativeLinuxMainKlibrary]" />
         <item itemvalue="Gradle.Parsinator [linuxX64Binaries]" />
-        <item itemvalue="Gradle.Parsinator [linuxX64MainKlibrary]" />
       </list>
     </recent_temporary>
   </component>

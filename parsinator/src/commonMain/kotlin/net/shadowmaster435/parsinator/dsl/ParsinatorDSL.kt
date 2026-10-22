@@ -260,10 +260,10 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     /**
      * When encountered, increment [Parsinator.index] by [incBy].
      */
-    fun exit(incBy: Int = 1) {
+    fun exit(incBy: Int = 1): ParsinatorHolder {
         check()
         exited = true
-        ParsinatorHolder(SkipParsinatorParser(incBy)).checkRoot()
+        return ParsinatorHolder(SkipParsinatorParser(incBy)).checkRoot()
     }
     /**
      * When encountered, increment [Parsinator.index] until [incUntil] returns true or the end of a string is reached
