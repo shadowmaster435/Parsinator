@@ -542,6 +542,7 @@ class ParsinatorHolder(@JvmSynthetic @JvmField internal val parser: AbstractPars
     @JvmSynthetic internal var handler: ParsinatorConstructor<*>? = null
 
     infix fun <T> makes(handler: @Marker (Any?) -> T) = parser.apply {
+        if (parser is SkipParsinatorParser) parser.hasMakes = true
         this@ParsinatorHolder.handler = ParsinatorConstructor(handler)
     }
 }
