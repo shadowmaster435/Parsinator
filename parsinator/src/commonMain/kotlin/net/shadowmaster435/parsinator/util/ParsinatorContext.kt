@@ -8,4 +8,5 @@ value class ParsinatorContext(
 ) {
     val inputString: String get() = v.first
     val indexRange: IntRange get() = v.second
+    val indexRangeExclusive: IntRange get() = v.second.first..<v.second.last
 }
