@@ -562,7 +562,7 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
 class ParsinatorHolder(@JvmSynthetic @JvmField internal val parser: AbstractParsinatorParser) {
     @JvmSynthetic internal var handler: ParsinatorConstructor<*>? = null
 
-    infix fun <T> makes(handler: @Marker (Any?) -> T) = parser.apply {
+    infix fun <T> makes(handler: @Marker Parsinator.(Any?) -> T) = parser.apply {
         if (this is SkipParsinatorParser) this.hasMakes = true
         this@ParsinatorHolder.handler = ParsinatorConstructor(handler)
     }
