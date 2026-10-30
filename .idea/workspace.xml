@@ -9,17 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Template wrapper">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Remove println">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/AbstractParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/AbstractParsinatorParser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorConstructor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorConstructor.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/nativeMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/nativeMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +120,7 @@
     "Gradle.Parsinator [linuxX64MainKlibrary].executor": "Run",
     "Gradle.Parsinator [nativeLinuxBinaries].executor": "Run",
     "Gradle.Parsinator [nativeLinuxMainKlibrary].executor": "Run",
-    "Gradle.parsinator.Parsinator [jvm].executor": "Run",
+    "Gradle.parsinator.Parsinator [jvm].executor": "Debug",
     "Kotlin.Run.executor": "Run",
     "Kotlin/Native Application.testNative[linuxX64].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -385,7 +383,9 @@
     <MESSAGE value="Woops" />
     <MESSAGE value="Exits now support makes functions" />
     <MESSAGE value="Template wrapper" />
-    <option name="LAST_COMMIT_MESSAGE" value="Template wrapper" />
+    <MESSAGE value="Parse now returns result, fixed use" />
+    <MESSAGE value="Remove println" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove println" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

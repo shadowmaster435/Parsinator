@@ -39,3 +39,44 @@ internal actual fun Parsinator.multiplatformParse(string: String): Any? {
     locked = false
     return parser.storage
 }
+
+fun main() {
+    template.wrap().parse("1111")
+}
+
+val template = ParsinatorTemplate {
+    chain(false) {
+        branch(false) {
+            token(false, "-", false) makes {true}
+            exit(0) makes {
+                println("????")
+                false
+            }
+        }
+        branch(false) {
+            token(false, "0x") makes {2}
+            token(false, "0b") makes {1}
+            exit(0) makes {0}
+        }
+        name(false, Regex("[0-9.eE-]"), Regex("[eE-]"))
+        branch(true) {
+            token(false, "f", false, )
+            token(false, "F",false, )
+        }
+    } makes {
+        it as List<*>
+        val negative = it[0] as Boolean
+        val stringType = it[1] as Int
+        val numberString = it[2] as String
+        val containsExponent = numberString.contains(Regex("[eE]"))
+        if (negative && stringType != 0) throw IllegalArgumentException("Negative signs are not supported for hex and binary strings")
+        if (stringType != 0 && containsExponent) throw IllegalArgumentException("Exponents cannot be used here")
+        val result = when(stringType) {
+            2 -> 1f
+            1 -> 1f
+            0 -> ((if (negative) "-" else "") + numberString).toFloat()
+            else -> throw RuntimeException("Failed to parse number")
+        }
+        result
+    }
+}

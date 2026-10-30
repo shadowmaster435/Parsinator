@@ -26,8 +26,7 @@ class TokenParsinatorParser(
             val start = parsinator.index
             relock(parsinator) {parsinator.inc(string.length)}
             storage = string
-            finish(string, start..parsinator.index)
-
+            finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
             return null
         }

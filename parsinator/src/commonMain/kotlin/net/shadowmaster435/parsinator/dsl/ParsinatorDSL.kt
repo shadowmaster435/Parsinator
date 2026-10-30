@@ -65,6 +65,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         for (holder in builder.entries) {
             list.add(holder.parser)
         }
+        builder.entries.forEach {
+            if (it !== builder.rootEntry) entries.add(it)
+        }
         return ParsinatorHolder(
             BranchParsinatorParser(
                 optional, excludeFromChains,
@@ -76,6 +79,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     protected open fun repeatingChain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker RepeatingParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = RepeatingParsinatorBuilder.create()
         builder.init()
+        builder.entries.forEach {
+            if (it !== builder.rootEntry) entries.add(it)
+        }
         return ParsinatorHolder(
             ChainParsinatorParser(
                 optional, excludeFromChains,
@@ -95,7 +101,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun use(template: ParsinatorTemplate): ParsinatorHolder {
         val builder = ParsinatorBuilder(true, true)
         template.init.invoke(builder)
-        entries.addAll(builder.entries)
+        builder.entries.forEach {
+            if (it !== builder.rootEntry) entries.add(it)
+        }
         if (builder.entries.isEmpty())
             throw IllegalStateException("Template cannot be empty")
         return builder.rootEntry!!.checkRoot()
@@ -110,6 +118,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun chain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker ParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = ParsinatorBuilder()
         builder.init()
+        builder.entries.forEach {
+            if (it !== builder.rootEntry) entries.add(it)
+        }
         return ParsinatorHolder(
             ChainParsinatorParser(
                 optional, excludeFromChains,
@@ -176,6 +187,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         val builder = RecursiveParsinatorBuilder.create()
         builder.subParser()
         entries.add(builder.rootEntry!!)
+        builder.entries.forEach {
+            if (it !== builder.rootEntry) entries.add(it)
+        }
         return ParsinatorHolder(
             RecursiveParsinatorParser(
                 shouldIncreaseDepth, shouldDecreaseDepth, builder.rootEntry!!.parser, optional, excludeFromChains

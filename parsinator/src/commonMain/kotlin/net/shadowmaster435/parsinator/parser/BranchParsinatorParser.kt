@@ -31,7 +31,7 @@ class BranchParsinatorParser(
                     // make sure not to pass null to storage to prevent cluttering chain, recursive, and repeat parsers
                     if (entry !is SkipParsinatorParser || entry.hasMakes) {
                         storage = entry.storage
-                        finish(null, start..parsinator.index)
+                        finish(parsinator.string, start..parsinator.index)
                         storage = construct(parsinator)
                     }
                     return null

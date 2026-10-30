@@ -23,6 +23,7 @@ class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((c
         if (hasMakes) {
             finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
+            println(storage)
         }
         return null
     }
