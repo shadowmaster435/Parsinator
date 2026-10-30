@@ -8,5 +8,4 @@ enum class ParsinatorErrorType(val message: String) {
     BRANCH_FAIL("No valid branch"),
     EMPTY_REPEAT("Repeat must contain at least one entry"),
     ILLEGAL_START_CHAR("Illegal start char"),
-    NON_OPTIONAL_WHITESPACE("Missing whitespace"),
 }

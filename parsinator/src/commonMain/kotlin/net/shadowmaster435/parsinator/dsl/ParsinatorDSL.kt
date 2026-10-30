@@ -28,7 +28,12 @@ private annotation class Marker
 @Marker
 value class ParsinatorTemplate( // exists to prevent autocomplete from trying to add a code block
     @JvmSynthetic @JvmField internal val init: @Marker ParsinatorBuilder.() -> Unit
-)
+) {
+    fun wrap(
+        debugFlags: ParsinatorDebugFlags = ParsinatorDebugFlags.NONE
+    ) = Parsinator(debugFlags, init)
+
+}
 
 @Marker
 open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false, protected val isTemplate: Boolean = false) {
