@@ -20,7 +20,7 @@ abstract class AbstractParsinatorParser(optional: Boolean, val excludeFromChains
     internal var inlinerCallback: ((ParsinatorParserOutput) -> Unit)? = null
 
     // convenience function
-    protected fun construct(parsinator: Parsinator) =
+    protected fun construct(parsinator: Parsinator): Any? =
         parsinator.construct(this, storage)
 
     protected fun finish(string: String?, range: IntRange) {

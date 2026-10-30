@@ -1,8 +1,11 @@
 package net.shadowmaster435.parsinator
 
+import net.shadowmaster435.parsinator.dsl.ParsinatorTemplate
 import net.shadowmaster435.parsinator.exception.ParsinatorIllegalIndexException
 import net.shadowmaster435.parsinator.exception.ParsinatorParseException
 import net.shadowmaster435.parsinator.util.ParsinatorError
+import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.min
 
 
@@ -19,7 +22,7 @@ internal actual fun Parsinator.multiplatformBoundsDebug(newIndex: Int): Boolean 
 
 
 @JvmSynthetic
-internal actual fun Parsinator.multiplatformParse(string: String) {
+internal actual fun Parsinator.multiplatformParse(string: String): Any? {
     locked = true
     this.actualString = string
     index = 0
@@ -34,4 +37,5 @@ internal actual fun Parsinator.multiplatformParse(string: String) {
     }
     this.actualString = null
     locked = false
+    return parser.storage
 }

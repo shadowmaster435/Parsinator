@@ -30,7 +30,7 @@ class ChainParsinatorParser(
             if (index >= chain.size) {
                 if (!optional && length < minRequiredLength) return ParsinatorErrorType.CHAIN_INCORRECT_LENGTH
                 storage = chainStorage
-                finish(null, start..parsinator.index)
+                finish(parsinator.string, start..parsinator.index)
                 storage = construct(parsinator)
                 return null
             }

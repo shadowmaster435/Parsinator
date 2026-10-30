@@ -11,7 +11,7 @@ class TokenParsinatorParser(
     excludeFromChains: Boolean,
 
     val requiresSurroundingWhitespace: Boolean
-) : AbstractParsinatorParser(optional, true) {
+) : AbstractParsinatorParser(optional, excludeFromChains) {
     override fun shouldParse(parsinator: Parsinator) = true
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {

@@ -21,7 +21,7 @@ internal actual fun Parsinator.multiplatformBoundsDebug(newIndex: Int): Boolean 
 }
 
 @OptIn(ExperimentalForeignApi::class)
-internal actual fun Parsinator.multiplatformParse(string: String) {
+internal actual fun Parsinator.multiplatformParse(string: String): Any? {
 
     locked = true
     this.actualString = string
@@ -44,5 +44,7 @@ internal actual fun Parsinator.multiplatformParse(string: String) {
         }
         this.actualString = null
         locked = false
+        return parser.storage
     }
+    return null
 }

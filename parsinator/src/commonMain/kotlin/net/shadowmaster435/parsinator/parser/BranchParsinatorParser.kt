@@ -25,9 +25,11 @@ class BranchParsinatorParser(
             val entry = branches[index]
             if (entry.shouldParse(parsinator)) {
                 val parsed = entry.parse(parsinator)
-                if (parsed != null) relock(parsinator) {parsinator.goto(start)} else {
+                if (parsed != null) relock(parsinator) {
+                    parsinator.goto(start)
+                } else {
                     // make sure not to pass null to storage to prevent cluttering chain, recursive, and repeat parsers
-                    if (entry !is SkipParsinatorParser) {
+                    if (entry !is SkipParsinatorParser || entry.hasMakes) {
                         storage = entry.storage
                         finish(null, start..parsinator.index)
                         storage = construct(parsinator)

@@ -63,8 +63,6 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         val list = mutableListOf<AbstractParsinatorParser>()
         builder.init()
         for (holder in builder.entries) {
-            entries.add(holder)
-
             list.add(holder.parser)
         }
         return ParsinatorHolder(
@@ -97,9 +95,9 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun use(template: ParsinatorTemplate): ParsinatorHolder {
         val builder = ParsinatorBuilder(true, true)
         template.init.invoke(builder)
+        entries.addAll(builder.entries)
         if (builder.entries.isEmpty())
             throw IllegalStateException("Template cannot be empty")
-        checkThrow()
         return builder.rootEntry!!.checkRoot()
     }
 
@@ -547,7 +545,7 @@ class ParsinatorHolder(@JvmSynthetic @JvmField internal val parser: AbstractPars
     @JvmSynthetic internal var handler: ParsinatorConstructor<*>? = null
 
     infix fun <T> makes(handler: @Marker (Any?) -> T) = parser.apply {
-        if (parser is SkipParsinatorParser) parser.hasMakes = true
+        if (this is SkipParsinatorParser) this.hasMakes = true
         this@ParsinatorHolder.handler = ParsinatorConstructor(handler)
     }
 }
