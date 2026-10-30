@@ -17,7 +17,7 @@ class BranchParsinatorParser(
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         var index = 0
-        val start = parsinator.pushIndex()
+        start = parsinator.index
         var error: ParsinatorErrorType? = null
         while (true) {
             if (index >= branches.size) return error
@@ -26,7 +26,6 @@ class BranchParsinatorParser(
                 val parsed = entry.parse(parsinator)
                 if (parsed != null) relock(parsinator) {
                     parsinator.goto(start)
-                    parsinator.popIndex()
                 } else {
                     // make sure not to pass null to storage to prevent cluttering chain, recursive, and repeat parsers
                     if (entry !is SkipParsinatorParser || entry.hasMakes) {

@@ -10,7 +10,7 @@ class ManualParsinatorParser(optional: Boolean, excludeFromChains: Boolean, priv
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         held = null
         storage = null
-        val start = parsinator.pushIndex()
+        start = parsinator.index
         val error = parseFunc(parsinator)
         storage = held
         finish(parsinator.string, start..parsinator.index)

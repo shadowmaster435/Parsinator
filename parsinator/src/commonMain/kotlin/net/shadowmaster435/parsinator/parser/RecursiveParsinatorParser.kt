@@ -23,15 +23,15 @@ open class RecursiveParsinatorParser(
         var depth = 0
         var started: Boolean
         var queueStarted = false
-        val start = parsinator.pushIndex()
+        start = parsinator.index
         while (true) {
             started = queueStarted
             if (parsinator.eof) {
                 relock(parsinator) {parsinator.goto(start)}
-                return (if (optional) {
+                return if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
                     null
-                } else ParsinatorErrorType.EOF).apply { parsinator.popIndex() }
+                } else ParsinatorErrorType.EOF
             }
             relock(parsinator) {
                 while (shouldIncreaseDepth(parsinator)) {
@@ -57,11 +57,11 @@ open class RecursiveParsinatorParser(
             }
             val parsed = subParser.parse(parsinator)
             if (parsed != null) {
-                return (if (optional) {
+                return if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
                     null
-                } else parsed).apply { parsinator.popIndex() }
-            } else currentStorage.add(parsinator.construct(subParser, subParser.storage))
+                } else parsed
+            } else currentStorage.add(parsinator.construct(subParser, subParser.storage, start))
         }
     }
 }

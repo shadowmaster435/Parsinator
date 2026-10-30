@@ -18,7 +18,7 @@ class RepeatParsinatorParser(
         val repeatStorage = mutableListOf<Any?>()
         var first = true
         while (true) {
-            val start = parsinator.pushIndex()
+            start = parsinator.index
             val parsed = chain.parse(parsinator)
             if (parsed != null) {
                 if (parsed == ParsinatorErrorType.EOF) return ParsinatorErrorType.EMPTY_REPEAT
@@ -29,7 +29,7 @@ class RepeatParsinatorParser(
                         construct(parsinator)
                         return null
                     }
-                    return ParsinatorErrorType.EMPTY_REPEAT.apply { parsinator.popIndex() }
+                    return ParsinatorErrorType.EMPTY_REPEAT
                 }
                 if (parsinator.char != null) parsinator.goto(start)
                 storage = repeatStorage

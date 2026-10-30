@@ -8,7 +8,7 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 abstract class AbstractParsinatorParser(optional: Boolean, val excludeFromChains: Boolean) {
     var optional = optional; @JvmSynthetic internal set
-
+    var start: Int = 0
     @JvmSynthetic internal open var storage: Any? = null
     abstract fun shouldParse(parsinator: Parsinator): Boolean
     abstract fun parse(parsinator: Parsinator): ParsinatorErrorType?
@@ -21,7 +21,7 @@ abstract class AbstractParsinatorParser(optional: Boolean, val excludeFromChains
 
     // convenience function
     protected fun construct(parsinator: Parsinator) =
-        parsinator.construct(this, storage)
+        parsinator.construct(this, storage, start)
 
     protected fun finish(string: String?, range: IntRange) {
         val output = ParsinatorParserOutput(string to range)

@@ -23,21 +23,11 @@ class Parsinator(
         if (actualString == null) throw IllegalStateException("Cannot get string while not parsing")
         return actualString!!
     }
-    @JvmSynthetic private val startStack = Stack<Int>()
     var index = 0; @JvmSynthetic internal set
     var locked = false; @JvmSynthetic internal set
     val char get() = string.getOrNull(index)
     val eof get() = char == null
     val last get() = string.getOrNull(index - 1)
-
-    @JvmSynthetic
-    internal fun pushIndex(): Int {
-        startStack.push(index)
-        return index
-    }
-    internal fun popIndex() {
-        startStack.pop()
-    }
 
     fun inc(by: Int = 1): Int {
         if (locked) throw ParsinatorLockedException()
@@ -70,15 +60,14 @@ class Parsinator(
         return string.substring(range)
     }
     fun parse(string: String): Any? {
-        startStack.clear()
         return multiplatformParse(string)
     }
 
     // call a parser's "makes" block (if it exists, else just return v) and return what the block returns for storage
     @JvmSynthetic
-    internal fun construct(parser: AbstractParsinatorParser, v: Any?) = (handlers[parser]?.func(
-        ParsinatorContext(string to startStack.peek()..index), v
-    ) ?: v).apply { popIndex() }
+    internal fun construct(parser: AbstractParsinatorParser, v: Any?, start: Int) = handlers[parser]?.func(
+        ParsinatorContext(string to start..index), v
+    ) ?: v
 
 
     fun inbounds(srcIndex: Int, offset: Int) = srcIndex + offset < string.length

@@ -22,13 +22,13 @@ class TokenParsinatorParser(
             first && last &&
             parsinator.substring(string.length) == string
         ) {
-            val start = parsinator.pushIndex()
+            start = parsinator.index
             relock(parsinator) {parsinator.inc(string.length)}
             storage = string
             finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
             return null
-        } else parsinator.popIndex()
+        }
 
         return if (optional) null else ParsinatorErrorType.EOF
     }

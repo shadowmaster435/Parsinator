@@ -15,13 +15,13 @@ class NameParsinatorParser(
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {
         var collected = ""
-        val start = parsinator.pushIndex()
+        start = parsinator.index
         while (true) {
             if (collected.isEmpty()) {
                 if (cannotStartWith != null) {
                     parsinator.string.getOrNull(parsinator.index)?.let { startChar ->
                         if (cannotStartWith.matches(startChar.toString()))
-                            return ParsinatorErrorType.ILLEGAL_START_CHAR.apply { parsinator.popIndex() }
+                            return ParsinatorErrorType.ILLEGAL_START_CHAR
                     }
                 }
             }

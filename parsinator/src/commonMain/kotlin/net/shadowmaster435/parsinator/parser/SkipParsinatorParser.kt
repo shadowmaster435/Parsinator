@@ -11,7 +11,7 @@ class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((c
 
     override fun shouldParse(parsinator: Parsinator) = true
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
-        val start = parsinator.pushIndex()
+        start = parsinator.index
         relock(parsinator) {
             if (incUntil != null)
                 while (parsinator.char != null && !incUntil(parsinator.char!!)) relock(parsinator) {parsinator.inc()}
@@ -23,7 +23,7 @@ class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((c
             finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
 
-        } else parsinator.popIndex()
+        }
 
         return null
     }
