@@ -25,7 +25,6 @@ class ChainParsinatorParser(
         var length = 0 // amount of successfully parse things
         var index = 0 // chain index
         val start = parsinator.index
-        println(chain.contentToString())
         var first = true
         while (true) {
             if (index >= chain.size) {
