@@ -2,9 +2,8 @@ package net.shadowmaster435.parsinator.parser
 
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmSynthetic
+
 class BranchParsinatorParser(
     optional: Boolean,
     excludeFromChains: Boolean,
@@ -18,7 +17,7 @@ class BranchParsinatorParser(
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         var index = 0
-        val start = parsinator.index
+        val start = parsinator.pushIndex()
         var error: ParsinatorErrorType? = null
         while (true) {
             if (index >= branches.size) return error
@@ -27,6 +26,7 @@ class BranchParsinatorParser(
                 val parsed = entry.parse(parsinator)
                 if (parsed != null) relock(parsinator) {
                     parsinator.goto(start)
+                    parsinator.popIndex()
                 } else {
                     // make sure not to pass null to storage to prevent cluttering chain, recursive, and repeat parsers
                     if (entry !is SkipParsinatorParser || entry.hasMakes) {

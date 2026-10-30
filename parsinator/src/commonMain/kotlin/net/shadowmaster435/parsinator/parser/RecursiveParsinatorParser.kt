@@ -3,9 +3,8 @@ package net.shadowmaster435.parsinator.parser
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import net.shadowmaster435.parsinator.util.Stack
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmSynthetic
+
 open class RecursiveParsinatorParser(
     @JvmField val shouldIncreaseDepth: (parsinator: Parsinator) -> Boolean,
     @JvmField val shouldDecreaseDepth: (parsinator: Parsinator) -> Boolean,
@@ -24,15 +23,15 @@ open class RecursiveParsinatorParser(
         var depth = 0
         var started: Boolean
         var queueStarted = false
-        val start = parsinator.index
+        val start = parsinator.pushIndex()
         while (true) {
             started = queueStarted
             if (parsinator.eof) {
                 relock(parsinator) {parsinator.goto(start)}
-                return if (optional) {
+                return (if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
                     null
-                } else ParsinatorErrorType.EOF
+                } else ParsinatorErrorType.EOF).apply { parsinator.popIndex() }
             }
             relock(parsinator) {
                 while (shouldIncreaseDepth(parsinator)) {
@@ -58,10 +57,10 @@ open class RecursiveParsinatorParser(
             }
             val parsed = subParser.parse(parsinator)
             if (parsed != null) {
-                return if (optional) {
+                return (if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
                     null
-                } else parsed
+                } else parsed).apply { parsinator.popIndex() }
             } else currentStorage.add(parsinator.construct(subParser, subParser.storage))
         }
     }

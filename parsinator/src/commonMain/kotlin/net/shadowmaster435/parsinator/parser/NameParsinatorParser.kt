@@ -2,9 +2,8 @@ package net.shadowmaster435.parsinator.parser
 
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmSynthetic
+
 class NameParsinatorParser(
     @JvmField val allowedChars: Regex,
     @JvmField val cannotStartWith: Regex? = null,
@@ -16,13 +15,13 @@ class NameParsinatorParser(
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType?  {
         var collected = ""
-        val start = parsinator.index
+        val start = parsinator.pushIndex()
         while (true) {
             if (collected.isEmpty()) {
                 if (cannotStartWith != null) {
                     parsinator.string.getOrNull(parsinator.index)?.let { startChar ->
                         if (cannotStartWith.matches(startChar.toString()))
-                            return ParsinatorErrorType.ILLEGAL_START_CHAR
+                            return ParsinatorErrorType.ILLEGAL_START_CHAR.apply { parsinator.popIndex() }
                     }
                 }
             }

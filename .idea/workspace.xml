@@ -9,9 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Remove println">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Makes functions now provide receiver context">
+      <change afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorContext.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorSignal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorSignal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ManualParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ManualParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RepeatParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RepeatParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorConstructor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorConstructor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/nativeMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/nativeMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,6 +159,9 @@
       <recent name="$PROJECT_DIR$/library" />
       <recent name="$PROJECT_DIR$/src/commonMain" />
       <recent name="$PROJECT_DIR$/src/commonMain/kotlin" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="net.shadowmaster435.parsinator.util" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="net.shadowmaster435.parsinator.util" />
@@ -381,7 +396,8 @@
     <MESSAGE value="Makes functions now work in nested blocks" />
     <MESSAGE value="Makes functions now (actually) work in nested blocks" />
     <MESSAGE value="Remove println" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove println" />
+    <MESSAGE value="Makes functions now provide receiver context" />
+    <option name="LAST_COMMIT_MESSAGE" value="Makes functions now provide receiver context" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

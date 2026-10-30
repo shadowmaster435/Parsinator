@@ -2,10 +2,8 @@ package net.shadowmaster435.parsinator.parser
 
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
-import net.shadowmaster435.parsinator.util.ParsinatorParserOutput
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmSynthetic
+
 class RepeatParsinatorParser(
     @JvmField val canBeEmpty: Boolean,
     @JvmField val chain: ChainParsinatorParser,
@@ -20,21 +18,23 @@ class RepeatParsinatorParser(
         val repeatStorage = mutableListOf<Any?>()
         var first = true
         while (true) {
-            val start = parsinator.index
+            val start = parsinator.pushIndex()
             val parsed = chain.parse(parsinator)
             if (parsed != null) {
                 if (parsed == ParsinatorErrorType.EOF) return ParsinatorErrorType.EMPTY_REPEAT
                 if (!canBeEmpty && first && !optional) {
                     if (parsinator.eof) {
                         storage = repeatStorage
-                        finish(null, start..parsinator.index)
+                        finish(parsinator.string, start..parsinator.index)
+                        construct(parsinator)
                         return null
                     }
-                    return ParsinatorErrorType.EMPTY_REPEAT
+                    return ParsinatorErrorType.EMPTY_REPEAT.apply { parsinator.popIndex() }
                 }
                 if (parsinator.char != null) parsinator.goto(start)
                 storage = repeatStorage
                 finish(null, start..parsinator.index)
+                construct(parsinator)
                 return null
             } else
                 chain.storage?.let { repeatStorage.addAll(it as Collection<Any?>) }

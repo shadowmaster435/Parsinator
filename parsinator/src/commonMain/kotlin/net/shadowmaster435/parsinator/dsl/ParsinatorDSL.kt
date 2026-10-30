@@ -13,6 +13,7 @@ import net.shadowmaster435.parsinator.parser.TokenParsinatorParser
 import net.shadowmaster435.parsinator.parser.WhitespaceParsinatorParser
 import net.shadowmaster435.parsinator.parser.WrapperParsinatorParser
 import net.shadowmaster435.parsinator.util.ParsinatorConstructor
+import net.shadowmaster435.parsinator.util.ParsinatorContext
 import net.shadowmaster435.parsinator.util.ParsinatorDebugFlags
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
 import kotlin.jvm.JvmField
@@ -562,7 +563,7 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
 class ParsinatorHolder(@JvmSynthetic @JvmField internal val parser: AbstractParsinatorParser) {
     @JvmSynthetic internal var handler: ParsinatorConstructor<*>? = null
 
-    infix fun <T> makes(handler: @Marker Parsinator.(Any?) -> T) = parser.apply {
+    infix fun <T> makes(handler: @Marker ParsinatorContext.(Any?) -> T) = parser.apply {
         if (this is SkipParsinatorParser) this.hasMakes = true
         this@ParsinatorHolder.handler = ParsinatorConstructor(handler)
     }

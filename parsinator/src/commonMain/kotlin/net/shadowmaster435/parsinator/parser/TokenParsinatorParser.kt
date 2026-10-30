@@ -2,9 +2,8 @@ package net.shadowmaster435.parsinator.parser
 
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmSynthetic
+
 class TokenParsinatorParser(
     @JvmField val string: String,
     optional: Boolean,
@@ -23,13 +22,13 @@ class TokenParsinatorParser(
             first && last &&
             parsinator.substring(string.length) == string
         ) {
-            val start = parsinator.index
+            val start = parsinator.pushIndex()
             relock(parsinator) {parsinator.inc(string.length)}
             storage = string
             finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
             return null
-        }
+        } else parsinator.popIndex()
 
         return if (optional) null else ParsinatorErrorType.EOF
     }

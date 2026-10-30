@@ -2,7 +2,6 @@ package net.shadowmaster435.parsinator.parser
 
 import net.shadowmaster435.parsinator.Parsinator
 import net.shadowmaster435.parsinator.util.ParsinatorErrorType
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 
@@ -12,7 +11,7 @@ class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((c
 
     override fun shouldParse(parsinator: Parsinator) = true
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
-        val start = parsinator.index
+        val start = parsinator.pushIndex()
         relock(parsinator) {
             if (incUntil != null)
                 while (parsinator.char != null && !incUntil(parsinator.char!!)) relock(parsinator) {parsinator.inc()}
@@ -23,7 +22,9 @@ class SkipParsinatorParser(@JvmField val incBy: Int, @JvmField val incUntil: ((c
         if (hasMakes) {
             finish(parsinator.string, start..parsinator.index)
             storage = construct(parsinator)
-        }
+
+        } else parsinator.popIndex()
+
         return null
     }
 }

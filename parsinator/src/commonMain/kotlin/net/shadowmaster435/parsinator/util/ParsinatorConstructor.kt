@@ -5,4 +5,4 @@ import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmSynthetic
 
 @JvmInline
-value class ParsinatorConstructor<T>(@JvmSynthetic internal val func: Parsinator.(obj: Any?) -> T)
+value class ParsinatorConstructor<T>(@JvmSynthetic internal val func: ParsinatorContext.(obj: Any?) -> T)

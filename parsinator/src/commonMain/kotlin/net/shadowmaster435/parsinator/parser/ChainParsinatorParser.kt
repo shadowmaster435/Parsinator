@@ -24,7 +24,7 @@ class ChainParsinatorParser(
         val chainStorage = mutableListOf<Any?>()
         var length = 0 // amount of successfully parse things
         var index = 0 // chain index
-        val start = parsinator.index
+        val start = parsinator.pushIndex()
         var first = true
         while (true) {
             if (index >= chain.size) {
@@ -60,13 +60,19 @@ class ChainParsinatorParser(
                         entry is WhitespaceParsinatorParser || entry is WrapperParsinatorParser && entry.isWhitespace
                     if (parsed != ParsinatorErrorType.EOF) {
                         if (!isWhitespace && !entry.excludeFromChains) chainStorage.add(entry.storage)
-                    } else if (parsinator.eof) return ParsinatorErrorType.CHAIN_EOF
-                    else if (!optional) return ParsinatorErrorType.CHAIN_FAIL
+                    } else if (parsinator.eof) return ParsinatorErrorType.CHAIN_EOF.apply {
+                        parsinator.popIndex()
+                    }
+                    else if (!optional) return ParsinatorErrorType.CHAIN_FAIL.apply {
+                        parsinator.popIndex()
+                    }
                     index++
                 }
                 else return parsed
                 first = false
-            } else return if (entry.optional) null else ParsinatorErrorType.CHAIN_FAIL
+            } else return (if (entry.optional) null else ParsinatorErrorType.CHAIN_FAIL).apply {
+                parsinator.popIndex()
+            }
         }
     }
 }
