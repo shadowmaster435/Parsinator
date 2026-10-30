@@ -62,10 +62,7 @@ class Parsinator(
 
     // call a parser's "makes" block (if it exists, else just return v) and return what the block returns for storage
     @JvmSynthetic
-    internal fun construct(parser: AbstractParsinatorParser, v: Any?): Any? {
-        println(handlers)
-        return  handlers[parser]?.func(v) ?: v
-    }
+    internal fun construct(parser: AbstractParsinatorParser, v: Any?) = handlers[parser]?.func(v) ?: v
 
 
     fun inbounds(srcIndex: Int, offset: Int) = srcIndex + offset < string.length

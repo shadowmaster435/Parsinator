@@ -162,7 +162,7 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.parsinator.Parsinator [jvm]">
+  <component name="RunManager" selected="Gradle.Parsinator [assemble]">
     <configuration name="Test" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="jbr-25" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -335,8 +335,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
         <item itemvalue="Gradle.Parsinator [assemble]" />
+        <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
         <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
         <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
         <item itemvalue="Gradle.Parsinator [build]" />
