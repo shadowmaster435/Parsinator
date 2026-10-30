@@ -9,14 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Remove println">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Makes functions now work in nested blocks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/AbstractParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/AbstractParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/BranchParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ChainParsinatorParser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/SkipParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/TokenParsinatorParser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +118,7 @@
     "Gradle.Parsinator [linuxX64MainKlibrary].executor": "Run",
     "Gradle.Parsinator [nativeLinuxBinaries].executor": "Run",
     "Gradle.Parsinator [nativeLinuxMainKlibrary].executor": "Run",
-    "Gradle.parsinator.Parsinator [jvm].executor": "Debug",
+    "Gradle.parsinator.Parsinator [jvm].executor": "Run",
     "Kotlin.Run.executor": "Run",
     "Kotlin/Native Application.testNative[linuxX64].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -160,7 +158,7 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Parsinator [assemble]">
+  <component name="RunManager" selected="Gradle.parsinator.Parsinator [jvm]">
     <configuration name="Test" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="jbr-25" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -333,8 +331,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Parsinator [assemble]" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
+        <item itemvalue="Gradle.Parsinator [assemble]" />
         <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
         <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
         <item itemvalue="Gradle.Parsinator [build]" />
@@ -385,7 +383,8 @@
     <MESSAGE value="Template wrapper" />
     <MESSAGE value="Parse now returns result, fixed use" />
     <MESSAGE value="Remove println" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove println" />
+    <MESSAGE value="Makes functions now work in nested blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Makes functions now work in nested blocks" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

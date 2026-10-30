@@ -38,11 +38,13 @@ value class ParsinatorTemplate( // exists to prevent autocomplete from trying to
 @Marker
 open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean = false, protected val isTemplate: Boolean = false) {
     @JvmField protected val entries = mutableListOf<ParsinatorHolder>()
+    @JvmField protected val handlerEntries = mutableListOf<ParsinatorHolder>()
     @JvmField protected var rootEntry: ParsinatorHolder? = null
     fun template(init: @Marker ParsinatorBuilder.() -> Unit) =
         ParsinatorTemplate(init)
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
         this@ParsinatorBuilder.entries.add(this)
+        this@ParsinatorBuilder.handlerEntries.add(this)
         if (this@ParsinatorBuilder.rootEntry == null) this@ParsinatorBuilder.rootEntry = this else this@ParsinatorBuilder.checkThrow()
         return this
     }
@@ -65,8 +67,8 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
         for (holder in builder.entries) {
             list.add(holder.parser)
         }
-        builder.entries.forEach {
-            if (it !== builder.rootEntry) entries.add(it)
+        builder.handlerEntries.forEach {
+            if (it.handler != null) handlerEntries.add(it)
         }
         return ParsinatorHolder(
             BranchParsinatorParser(
@@ -79,8 +81,8 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     protected open fun repeatingChain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker RepeatingParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = RepeatingParsinatorBuilder.create()
         builder.init()
-        builder.entries.forEach {
-            if (it !== builder.rootEntry) entries.add(it)
+        builder.handlerEntries.forEach {
+            if (it.handler != null) handlerEntries.add(it)
         }
         return ParsinatorHolder(
             ChainParsinatorParser(
@@ -101,11 +103,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun use(template: ParsinatorTemplate): ParsinatorHolder {
         val builder = ParsinatorBuilder(true, true)
         template.init.invoke(builder)
-        builder.entries.forEach {
-            if (it !== builder.rootEntry) entries.add(it)
+        builder.handlerEntries.forEach {
+            if (it.handler != null) handlerEntries.add(it)
         }
         if (builder.entries.isEmpty())
             throw IllegalStateException("Template cannot be empty")
+        entries.add(builder.rootEntry!!)
         return builder.rootEntry!!.checkRoot()
     }
 
@@ -118,8 +121,8 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     open fun chain(optional: Boolean, excludeFromChains: Boolean = false, init: @Marker ParsinatorBuilder.() -> Unit): ParsinatorHolder {
         val builder = ParsinatorBuilder()
         builder.init()
-        builder.entries.forEach {
-            if (it !== builder.rootEntry) entries.add(it)
+        builder.handlerEntries.forEach {
+            if (it.handler != null) handlerEntries.add(it)
         }
         return ParsinatorHolder(
             ChainParsinatorParser(
@@ -186,9 +189,8 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
     ): ParsinatorHolder {
         val builder = RecursiveParsinatorBuilder.create()
         builder.subParser()
-        entries.add(builder.rootEntry!!)
-        builder.entries.forEach {
-            if (it !== builder.rootEntry) entries.add(it)
+        builder.handlerEntries.forEach {
+            if (it.handler != null) handlerEntries.add(it)
         }
         return ParsinatorHolder(
             RecursiveParsinatorParser(
@@ -247,7 +249,7 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
             val rootEntry =
                 builder.rootEntry ?: throw NullPointerException("Root block must contain at least one parser")
             val entries = buildMap {
-                builder.entries.forEach {
+                builder.handlerEntries.forEach {
                     put(it.parser, it.handler)
                 }
             }
@@ -272,6 +274,7 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
     private var exited = false
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
         this@BranchParsinatorBuilder.entries.add(this)
+        this@BranchParsinatorBuilder.handlerEntries.add(this)
         return this
     }
     /**
@@ -425,6 +428,7 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
     private var exited = false
     private fun ParsinatorHolder.checkRoot(): ParsinatorHolder {
         this@RepeatingParsinatorBuilder.entries.add(this)
+        this@RepeatingParsinatorBuilder.handlerEntries.add(this)
         return this
     }
 
