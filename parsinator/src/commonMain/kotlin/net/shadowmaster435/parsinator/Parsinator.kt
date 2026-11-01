@@ -6,9 +6,9 @@ import net.shadowmaster435.parsinator.parser.AbstractParsinatorParser
 import net.shadowmaster435.parsinator.util.ParsinatorConstructor
 import net.shadowmaster435.parsinator.util.ParsinatorContext
 import net.shadowmaster435.parsinator.util.ParsinatorDebugFlags
-import net.shadowmaster435.parsinator.util.Stack
 import kotlin.jvm.JvmSynthetic
 import kotlin.math.min
+import kotlin.reflect.KClass
 
 
 class Parsinator(
@@ -16,8 +16,9 @@ class Parsinator(
     private val handlers: Map<AbstractParsinatorParser, ParsinatorConstructor<*>?>,
     @JvmSynthetic internal val parser: AbstractParsinatorParser
 ) {
-    @JvmSynthetic
-    internal var actualString: String? = null
+    @JvmSynthetic internal var actualString: String? = null
+    @JvmSynthetic internal val data = hashMapOf<KClass<*>, Any>()
+
 
     val string: String get() {
         if (actualString == null) throw IllegalStateException("Cannot get string while not parsing")
@@ -62,11 +63,27 @@ class Parsinator(
     fun parse(string: String): Any? {
         return multiplatformParse(string)
     }
-
+    inline fun <reified T : Any> getData() = getData(T::class)
+    inline fun <reified T : Any> getDataOrElse(ifAbsent: T) = getDataOrElse(T::class, ifAbsent)
+    inline fun <reified T : Any> putDataIfAbsent(value: T) = putDataIfAbsent(T::class, value)
+    inline fun <reified T : Any> putData(value: T) = putData(T::class, value)
+    inline fun <reified T : Any> hasData() = hasData(T::class)
+    inline fun <reified T : Any> ifDataPresent(noinline func: T.() -> Unit) = ifDataPresent(T::class, func)
+    @Suppress("UNCHECKED_CAST") fun <T : Any> getData(klass: KClass<T>): T? = data[klass] as? T
+    fun <T : Any> getDataOrElse(klass: KClass<T>, ifAbsent: T): T = getData(klass) ?: run {
+        data[klass] = ifAbsent
+        ifAbsent
+    }
+    fun <T : Any> putData(klass: KClass<T>, value: T) = data.put(klass, value)
+    fun <T : Any> putDataIfAbsent(klass: KClass<T>, value: T) = data.getOrPut(klass) {value}
+    fun <T : Any> hasData(klass: KClass<T>) = data.containsKey(klass)
+    fun <T : Any> ifDataPresent(klass: KClass<T>, func: T.() -> Unit) {
+        getData(klass)?.let { it.func() }
+    }
     // call a parser's "makes" block (if it exists, else just return v) and return what the block returns for storage
     @JvmSynthetic
     internal fun construct(parser: AbstractParsinatorParser, v: Any?, start: Int) = handlers[parser]?.func(
-        ParsinatorContext(string to start..index), v
+        ParsinatorContext(Triple(string, start..index, this)), v
     ) ?: v
 
 

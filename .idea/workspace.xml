@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Fix">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Exclusive range parameter">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorContext.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorContext.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +78,10 @@
     &quot;accountId&quot;: &quot;9605a39a-aeaf-41ea-bc8e-4463ac71519e&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/2.4.20/355bbaaff09fd13e347c432492533a97c7e93bfc/kotlin-gradle-plugin-api-2.4.20-sources.jar!/org/jetbrains/kotlin/gradle/plugin/mpp/NativeBinaryTypes.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/2.4.20/5833b43e407bdb58a7b2cf4fce972f1ad19f5443/kotlin-gradle-plugin-2.4.20-sources.jar!/org/jetbrains/kotlin/gradle/targets/native/NativeBinaries.kt" root0="SKIP_INSPECTION" />
+  </component>
   <component name="KmpPackageLockUpdaterState">{
   &quot;jsModulesKotlinGradlePluginVersion&quot;: {},
   &quot;wasmModulesKotlinGradlePluginVersion&quot;: {}
@@ -95,48 +101,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "CidrDebugProfileConversion": "true",
-    "Gradle.Build Parsinator.executor": "Run",
-    "Gradle.Building Kotlin artifacts for KonanApp.executor": "Run",
-    "Gradle.Building Kotlin artifacts for testNative[linuxX64].executor": "Run",
-    "Gradle.Parsinator [:MainKt.main()].executor": "Run",
-    "Gradle.Parsinator [:test:test.MainKt.main()].executor": "Run",
-    "Gradle.Parsinator [allMetadataJar].executor": "Run",
-    "Gradle.Parsinator [assemble].executor": "Run",
-    "Gradle.Parsinator [build].executor": "Run",
-    "Gradle.Parsinator [createLibs].executor": "Run",
-    "Gradle.Parsinator [linkDebugSharedNativeLinux].executor": "Run",
-    "Gradle.Parsinator [linkReleaseSharedNativeLinux].executor": "Run",
-    "Gradle.Parsinator [linuxX64Binaries].executor": "Run",
-    "Gradle.Parsinator [linuxX64MainKlibrary].executor": "Run",
-    "Gradle.Parsinator [nativeLinuxBinaries].executor": "Run",
-    "Gradle.Parsinator [nativeLinuxMainKlibrary].executor": "Run",
-    "Gradle.parsinator.Parsinator [jvm].executor": "Run",
-    "Kotlin.Run.executor": "Run",
-    "Kotlin/Native Application.testNative[linuxX64].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android.gradle.sync.needed": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/shadowmaste435/IdeaProjects/Parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator",
-    "node.js.detected.package.jshint": "true",
-    "node.js.selected.package.jshint": "",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.16113281",
-    "project.structure.side.proportion": "0.60722613",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CidrDebugProfileConversion&quot;: &quot;true&quot;,
+    &quot;Gradle.Build Parsinator.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Building Kotlin artifacts for KonanApp.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Building Kotlin artifacts for testNative[linuxX64].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [:MainKt.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [:test:test.MainKt.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [allMetadataJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [createLibs].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [linkDebugSharedNativeLinux].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [linkReleaseSharedNativeLinux].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [linuxX64Binaries].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [linuxX64MainKlibrary].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [nativeLinuxBinaries].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Parsinator [nativeLinuxMainKlibrary].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.parsinator.Parsinator [jvm].executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.Run.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin/Native Application.testNative[linuxX64].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/shadowmaste435/IdeaProjects/Parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.16113281&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.60722613&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/jvmMain/kotlin/net/shadowmaster435/parsinator" />
@@ -386,7 +392,8 @@
     <MESSAGE value="Makes functions now provide receiver context" />
     <MESSAGE value="Receiver context class" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Exclusive range parameter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exclusive range parameter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
