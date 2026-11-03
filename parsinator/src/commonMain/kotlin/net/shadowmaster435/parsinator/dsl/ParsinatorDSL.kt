@@ -145,12 +145,12 @@ open class ParsinatorBuilder protected constructor(protected val isRoot: Boolean
      * Something to note is that the regexes here only care about one character at a time so lookaheads and whatnot
      * will not work here. If you need more granular control use a [manual] parser
      */
-    open fun name(optional: Boolean, allowedCharacters: Regex, cannotStartWith: Regex? = null, excludeFromChains: Boolean = false) =
+    open fun name(optional: Boolean, allowedCharacters: Regex, cannotStartWith: Regex? = null, excludeFromChains: Boolean = false, canBeEmpty: Boolean = true) =
         ParsinatorHolder(
             NameParsinatorParser(
                 allowedCharacters,
                 cannotStartWith,
-                optional, excludeFromChains
+                optional, excludeFromChains, canBeEmpty
             )
         ).checkRoot()
 
@@ -352,10 +352,10 @@ class BranchParsinatorBuilder private constructor(isRoot: Boolean = false): Pars
         optional: Boolean,
         allowedCharacters: Regex,
         cannotStartWith: Regex?,
-        excludeFromChains: Boolean,
+        excludeFromChains: Boolean, canBeEmpty: Boolean
     ): ParsinatorHolder {
         check()
-        val v = super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains)
+        val v = super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains, canBeEmpty)
         v.parser.optional = false
         return v
     }
@@ -497,10 +497,10 @@ class RepeatingParsinatorBuilder private constructor(isRoot: Boolean = false): P
         optional: Boolean,
         allowedCharacters: Regex,
         cannotStartWith: Regex?,
-        excludeFromChains: Boolean,
+        excludeFromChains: Boolean, canBeEmpty: Boolean
     ): ParsinatorHolder {
         check()
-        return super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains)
+        return super.name(optional, allowedCharacters, cannotStartWith, excludeFromChains, canBeEmpty)
     }
 
     override fun manual(

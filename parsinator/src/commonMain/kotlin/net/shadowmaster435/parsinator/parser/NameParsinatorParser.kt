@@ -9,6 +9,7 @@ class NameParsinatorParser(
     @JvmField val cannotStartWith: Regex? = null,
     optional: Boolean,
     excludeFromChains: Boolean,
+    @JvmField val canBeEmpty: Boolean
 
 ) : AbstractParsinatorParser(optional, excludeFromChains) {
     override fun shouldParse(parsinator: Parsinator) = parsinator.inbounds(0) && allowedChars.matches(parsinator.char.toString())
@@ -27,7 +28,7 @@ class NameParsinatorParser(
             }
             val char = parsinator.char
             if (parsinator.eof || !allowedChars.matches(char.toString())) {
-                if (collected.isEmpty()) return ParsinatorErrorType.EMPTY_NAME
+                if (!canBeEmpty && collected.isEmpty()) return ParsinatorErrorType.EMPTY_NAME
                 storage = collected
                 finish(parsinator.string, start..parsinator.index)
                 storage = construct(parsinator)

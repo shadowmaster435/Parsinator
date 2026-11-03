@@ -9,12 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Contextual data">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Added empty name error type">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorErrorType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorErrorType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +162,7 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.parsinator.Parsinator [jvm] (1)">
+  <component name="RunManager" selected="Gradle.Parsinator [assemble]">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="com.example.Parsinator.nativeTest" />
       <method v="2">
@@ -498,9 +496,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Parsinator [assemble]" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm] (1)" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
-        <item itemvalue="Gradle.Parsinator [assemble]" />
         <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
         <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
       </list>
@@ -557,7 +555,8 @@
     <MESSAGE value="Fix" />
     <MESSAGE value="Exclusive range parameter" />
     <MESSAGE value="Contextual data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Contextual data" />
+    <MESSAGE value="Added empty name error type" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added empty name error type" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
