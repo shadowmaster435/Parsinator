@@ -27,6 +27,7 @@ class NameParsinatorParser(
             }
             val char = parsinator.char
             if (parsinator.eof || !allowedChars.matches(char.toString())) {
+                if (collected.isEmpty()) return ParsinatorErrorType.EMPTY_NAME
                 storage = collected
                 finish(parsinator.string, start..parsinator.index)
                 storage = construct(parsinator)

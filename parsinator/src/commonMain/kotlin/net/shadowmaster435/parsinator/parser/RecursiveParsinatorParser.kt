@@ -13,19 +13,19 @@ open class RecursiveParsinatorParser(
     excludeFromChains: Boolean,
 
 ) : AbstractParsinatorParser(optional, excludeFromChains) {
+    val rootIsChain = subParser is ChainParsinatorParser
 
     override fun shouldParse(parsinator: Parsinator) = shouldIncreaseDepth(parsinator)
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         var currentStorage = mutableListOf<Any?>()
         val storageStack = Stack<MutableList<Any?>>()
-
         var depth = 0
-        var started: Boolean
+        var started = false
         var queueStarted = false
         start = parsinator.index
         while (true) {
-            started = queueStarted
+            if (queueStarted) started = true
             if (parsinator.eof) {
                 relock(parsinator) {parsinator.goto(start)}
                 return if (optional) {
@@ -51,7 +51,7 @@ open class RecursiveParsinatorParser(
             }
             if (depth == 0 && started /* allows condition not to be prematurely met*/) {
                 storage = currentStorage
-                finish(null, start..parsinator.index)
+                finish(parsinator.string, start..parsinator.index)
                 storage = construct(parsinator)
                 return null
             }

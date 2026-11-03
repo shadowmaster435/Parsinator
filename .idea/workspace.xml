@@ -9,10 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Exclusive range parameter">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Contextual data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorContext.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorContext.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorErrorType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/util/ParsinatorErrorType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator/Parsinator.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,48 +103,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;CidrDebugProfileConversion&quot;: &quot;true&quot;,
-    &quot;Gradle.Build Parsinator.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Building Kotlin artifacts for KonanApp.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Building Kotlin artifacts for testNative[linuxX64].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [:MainKt.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [:test:test.MainKt.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [allMetadataJar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [createLibs].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [linkDebugSharedNativeLinux].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [linkReleaseSharedNativeLinux].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [linuxX64Binaries].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [linuxX64MainKlibrary].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [nativeLinuxBinaries].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Parsinator [nativeLinuxMainKlibrary].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.parsinator.Parsinator [jvm].executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.Run.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin/Native Application.testNative[linuxX64].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/shadowmaste435/IdeaProjects/Parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.16113281&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.60722613&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "CidrDebugProfileConversion": "true",
+    "Gradle.Build Parsinator.executor": "Run",
+    "Gradle.Building Kotlin artifacts for KonanApp.executor": "Run",
+    "Gradle.Building Kotlin artifacts for testNative[linuxX64].executor": "Run",
+    "Gradle.Parsinator [:MainKt.main()].executor": "Run",
+    "Gradle.Parsinator [:test:test.MainKt.main()].executor": "Run",
+    "Gradle.Parsinator [allMetadataJar].executor": "Run",
+    "Gradle.Parsinator [assemble].executor": "Run",
+    "Gradle.Parsinator [build].executor": "Run",
+    "Gradle.Parsinator [createLibs].executor": "Run",
+    "Gradle.Parsinator [linkDebugSharedNativeLinux].executor": "Run",
+    "Gradle.Parsinator [linkReleaseSharedNativeLinux].executor": "Run",
+    "Gradle.Parsinator [linuxX64Binaries].executor": "Run",
+    "Gradle.Parsinator [linuxX64MainKlibrary].executor": "Run",
+    "Gradle.Parsinator [nativeLinuxBinaries].executor": "Run",
+    "Gradle.Parsinator [nativeLinuxMainKlibrary].executor": "Run",
+    "Gradle.parsinator.Parsinator [jvm] (1).executor": "Debug",
+    "Gradle.parsinator.Parsinator [jvm].executor": "Run",
+    "Kotlin.Run.executor": "Run",
+    "Kotlin/Native Application.testNative[linuxX64].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/shadowmaste435/IdeaProjects/Parsinator/src/jvmMain/kotlin/net/shadowmaster435/parsinator",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.16113281",
+    "project.structure.side.proportion": "0.60722613",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/jvmMain/kotlin/net/shadowmaster435/parsinator" />
@@ -162,7 +164,27 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Parsinator [assemble]">
+  <component name="RunManager" selected="Gradle.parsinator.Parsinator [jvm] (1)">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="com.example.Parsinator.nativeTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="com.example.Parsinator.nativeTest" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="jbr-25" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="test.MainKt" />
+      <module name="Parsinator.test.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="jbr-25" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -184,6 +206,56 @@
         <option name="taskNames">
           <list>
             <option value="allMetadataJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parsinator [allMetadataJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="allMetadataJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parsinator [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -272,6 +344,81 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
+    <configuration name="Parsinator [linkReleaseSharedNativeLinux]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="linkReleaseSharedNativeLinux" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="parsinator.Parsinator [jvm] (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/parsinator" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="-DmainClass=net.shadowmaster435.parsinator.ParsinatorKt --quiet" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parsinator:jvmRun" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="parsinator.Parsinator [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/parsinator" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="-DmainClass=net.shadowmaster435.parsinator.ParsinatorKt --quiet" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parsinator:jvmRun" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
     <configuration name="parsinator.Parsinator [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -319,6 +466,22 @@
         <option name="com.jetbrains.mpp.KonanBuildTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="testNative[linuxX64]" type="KonanRunConfiguration" factoryName="KonanApp" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$PROJECT_DIR$/testNative" PASS_PARENT_ENVS_2="true">
+      <executable TARGET="linux_x64" TARGET_NAME="linuxX64" EXECUTABLE_NAME="testNative" PROJECT_PREFIX=":testNative:" IS_TEST="false">
+        <variant NAME="Debug" GRADLE_TASK=":testNative:linkDebugExecutableLinuxX64" FILE="$PROJECT_DIR$/testNative/build/bin/linuxX64/debugExecutable/testNative.kexe" WORKING_DIR="$PROJECT_DIR$/testNative" PROGRAM_PARAMS="">
+          <envs />
+        </variant>
+        <variant NAME="Release" GRADLE_TASK=":testNative:linkReleaseExecutableLinuxX64" FILE="$PROJECT_DIR$/testNative/build/bin/linuxX64/releaseExecutable/testNative.kexe" WORKING_DIR="$PROJECT_DIR$/testNative" PROGRAM_PARAMS="">
+          <envs />
+        </variant>
+      </executable>
+      <variant NAME="Debug" GRADLE_TASK=":testNative:linkDebugExecutableLinuxX64" FILE="$PROJECT_DIR$/testNative/build/bin/linuxX64/debugExecutable/testNative.kexe" WORKING_DIR="$PROJECT_DIR$/testNative" PROGRAM_PARAMS="">
+        <envs />
+      </variant>
+      <method v="2">
+        <option name="com.jetbrains.mpp.KonanBuildTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="com.example.Parsinator.nativeTest" />
       <option name="filePath" />
@@ -326,28 +489,28 @@
     </configuration>
     <list>
       <item itemvalue="Application.Test" />
+      <item itemvalue="Gradle.parsinator.Parsinator [jvm] (1)" />
       <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
       <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
       <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
-      <item itemvalue="Gradle.Parsinator [build]" />
       <item itemvalue="Gradle.Parsinator [assemble]" />
       <item itemvalue="Kotlin/Native Application.testNative[linuxX64]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Parsinator [assemble]" />
+        <item itemvalue="Gradle.parsinator.Parsinator [jvm] (1)" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
+        <item itemvalue="Gradle.Parsinator [assemble]" />
         <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
         <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
-        <item itemvalue="Gradle.Parsinator [build]" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+        <option value="bundled-jdk-30f59d01ecdd-2df11533d9fe-intellij.indexing.shared.core-IU-262.11879.100" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.11879.100" />
       </set>
     </attachedChunks>
   </component>
@@ -393,7 +556,8 @@
     <MESSAGE value="Receiver context class" />
     <MESSAGE value="Fix" />
     <MESSAGE value="Exclusive range parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Exclusive range parameter" />
+    <MESSAGE value="Contextual data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Contextual data" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
