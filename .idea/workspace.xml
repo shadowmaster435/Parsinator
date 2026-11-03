@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Recursive parsers now no longer require an initial recursion to start storing parsed data">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Fix typo and added missing relock check">
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ManualParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/ManualParsinatorParser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -556,7 +556,8 @@
     <MESSAGE value="Added empty name error type" />
     <MESSAGE value="Can be empty parameter for names" />
     <MESSAGE value="Recursive parsers now no longer require an initial recursion to start storing parsed data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recursive parsers now no longer require an initial recursion to start storing parsed data" />
+    <MESSAGE value="Fix typo and added missing relock check" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix typo and added missing relock check" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

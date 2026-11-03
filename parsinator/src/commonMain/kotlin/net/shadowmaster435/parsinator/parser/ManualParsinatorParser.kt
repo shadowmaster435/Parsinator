@@ -11,7 +11,10 @@ class ManualParsinatorParser(optional: Boolean, excludeFromChains: Boolean, priv
         held = null
         storage = null
         start = parsinator.index
-        val error = parseFunc(parsinator)
+        var error: ParsinatorErrorType? = null
+        relock(parsinator) {
+            error = parseFunc(parsinator)
+        }
         storage = held
         finish(parsinator.string, start..parsinator.index)
         storage = construct(parsinator)
