@@ -31,7 +31,7 @@ class RepeatParsinatorParser(
                     }
                     return ParsinatorErrorType.EMPTY_REPEAT
                 }
-                if (parsinator.char != null) parsinator.goto(start)
+                if (parsinator.char != null) relock(parsinator) {parsinator.goto(start)}
                 storage = repeatStorage
                 finish(null, start..parsinator.index)
                 construct(parsinator)
