@@ -13,13 +13,12 @@ open class RecursiveParsinatorParser(
     excludeFromChains: Boolean,
 
 ) : AbstractParsinatorParser(optional, excludeFromChains) {
-    val rootIsChain = subParser is ChainParsinatorParser
-
     override fun shouldParse(parsinator: Parsinator) = shouldIncreaseDepth(parsinator)
 
     override fun parse(parsinator: Parsinator): ParsinatorErrorType? {
         var currentStorage = mutableListOf<Any?>()
         val storageStack = Stack<MutableList<Any?>>()
+        storageStack.push(currentStorage)
         var depth = 0
         var started = false
         var queueStarted = false
@@ -45,23 +44,23 @@ open class RecursiveParsinatorParser(
                 while (shouldDecreaseDepth(parsinator)) {
                     depth--
                     storageStack.pop()
-                    if (depth > 0) // prevents an exception caused by the stack being empty
-                        currentStorage = storageStack.peek()
+                    currentStorage = storageStack.peek()
                 }
             }
-            if (depth == 0 && started /* allows condition not to be prematurely met*/) {
-                storage = currentStorage
-                finish(parsinator.string, start..parsinator.index)
-                storage = construct(parsinator)
-                return null
-            }
+
             val parsed = subParser.parse(parsinator)
             if (parsed != null) {
                 return if (optional) {
                     relock(parsinator) {parsinator.goto(start)}
                     null
                 } else parsed
-            } else currentStorage.add(parsinator.construct(subParser, subParser.storage, start))
+            } else storageStack.peek().add(parsinator.construct(subParser, subParser.storage, start))
+            if (depth == 0 && started /* allows condition not to be prematurely met*/) {
+                storage = currentStorage
+                finish(parsinator.string, start..parsinator.index)
+                storage = construct(parsinator)
+                return null
+            }
         }
     }
 }

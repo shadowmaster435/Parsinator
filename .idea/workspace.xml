@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Added empty name error type">
+    <list default="true" id="7e9237c6-7c05-4e50-9a15-8279b6ea1a10" name="Changes" comment="Can be empty parameter for names">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/dsl/ParsinatorDSL.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/NameParsinatorParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parsinator/src/commonMain/kotlin/net/shadowmaster435/parsinator/parser/RecursiveParsinatorParser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -497,10 +496,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Parsinator [assemble]" />
+        <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm] (1)" />
         <item itemvalue="Gradle.parsinator.Parsinator [jvm]" />
         <item itemvalue="Gradle.Parsinator [linkReleaseSharedNativeLinux]" />
-        <item itemvalue="Gradle.Parsinator [allMetadataJar]" />
       </list>
     </recent_temporary>
   </component>
@@ -556,7 +555,8 @@
     <MESSAGE value="Exclusive range parameter" />
     <MESSAGE value="Contextual data" />
     <MESSAGE value="Added empty name error type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added empty name error type" />
+    <MESSAGE value="Can be empty parameter for names" />
+    <option name="LAST_COMMIT_MESSAGE" value="Can be empty parameter for names" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
